@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasar RupaNusa | Belanja Produk Budaya</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        earth: { 50: '#fbf7f3', 100: '#f5efe6', 200: '#e6dcd0', 300: '#d2c0ab', 400: '#a68a6d', 500: '#8c6b4a', 600: '#755438', 700: '#5e412f', 800: '#4e3629', 900: '#2b1c15' },
+                        terracotta: { 500: '#cc5833', 600: '#a84223' },
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #fbf7f3; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f5efe6; }
+        ::-webkit-scrollbar-thumb { background: #d2c0ab; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8c6b4a; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        
+        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .slide-in-right { animation: slideInRight 0.3s ease-out forwards; }
+
+        /* Loader Animation */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #cc5833;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Success Checkmark Animation */
+        .checkmark__circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2; stroke-miterlimit: 10; stroke: #4bb71b; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+        .checkmark { width: 56px; height: 56px; border-radius: 50%; display: block; stroke-width: 2; stroke: #fff; stroke-miterlimit: 10; margin: 10px auto; box-shadow: inset 0px 0px 0px #4bb71b; animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both; }
+        .checkmark__check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+        
+        /* Failed Cross Animation */
+        .crossmark__circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2; stroke-miterlimit: 10; stroke: #ef4444; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+        .crossmark { width: 56px; height: 56px; border-radius: 50%; display: block; stroke-width: 2; stroke: #ef4444; stroke-miterlimit: 10; margin: 10px auto; box-shadow: inset 0px 0px 0px #ef4444; animation: fillRed .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both; }
+        .crossmark__check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+        @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+        @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 30px #4bb71b; } }
+        @keyframes fillRed { 100% { box-shadow: inset 0px 0px 0px 30px #ef4444; } }
+        
+        /* Premium Shine for Export Tier */
+        .shine-effect { position: relative; overflow: hidden; }
+        .shine-effect::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); transform: skewX(-25deg); animation: shine 6s infinite; }
+        @keyframes shine { 20%, 100% { left: 200%; } }
+    </style>
+</head>
+<body class="text-earth-900 antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-earth-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 bg-terracotta-500 rounded-full flex items-center justify-center text-white font-serif font-bold text-xl group-hover:scale-110 transition">R</div>
+                        <div class="flex flex-col">
+                            <span class="font-serif font-bold text-xl tracking-wide text-earth-900 leading-none">RupaNusa</span>
+                            <span class="text-xs text-terracotta-600 font-medium tracking-widest uppercase">Pasar Budaya</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-6">
+                    <button class="relative group" onclick="toggleCart()">
+                        <i class="fas fa-shopping-bag text-2xl text-earth-800 group-hover:text-terracotta-500 transition"></i>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-terracotta-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
+                    </button>
+                    <div class="w-px h-8 bg-earth-200"></div>
+                    
+                    <!-- Akun Saya Trigger -->
+                    <button onclick="toggleAccountModal()" class="flex items-center gap-2 text-earth-800 hover:text-terracotta-500 font-medium group">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sharyn" class="w-8 h-8 rounded-full border border-earth-300 group-hover:border-terracotta-500 transition">
+                        <span class="text-sm hidden md:block">Akun Saya</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <!-- Header Banner -->
+        <div class="bg-earth-800 rounded-2xl p-8 mb-10 relative overflow-hidden text-white shadow-xl">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/batik.png')]"></div>
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-left">
+                    <h1 class="font-serif text-3xl md:text-5xl font-bold mb-2">Koleksi Kurasi Nusantara</h1>
+                    <p class="text-earth-200 max-w-xl text-sm md:text-base">Temukan produk budaya otentik langsung dari pengrajin lokal. Setiap pembelian mendukung kelestarian tradisi.</p>
+                </div>
+                <!-- Stats Box -->
+                <div class="flex gap-3">
+                    <div class="text-center px-4 py-2 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20">
+                        <div class="text-2xl font-bold text-terracotta-400">100%</div>
+                        <div class="text-xs text-earth-100">Handmade</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters & Grid Layout -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Sidebar Filter -->
+            <aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
+                <!-- Categories -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-earth-100">
+                    <h3 class="font-serif font-bold text-lg text-earth-800 mb-4 border-b border-earth-100 pb-2">Kategori</h3>
+                    <div class="space-y-2" id="category-filters">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="category" value="all" checked class="accent-terracotta-500 w-4 h-4" onchange="applyFilters()">
+                            <span class="text-earth-600 group-hover:text-terracotta-600 transition">Semua Produk</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="category" value="batik" class="accent-terracotta-500 w-4 h-4" onchange="applyFilters()">
+                            <span class="text-earth-600 group-hover:text-terracotta-600 transition">Batik Tulis</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="category" value="tenun" class="accent-terracotta-500 w-4 h-4" onchange="applyFilters()">
+                            <span class="text-earth-600 group-hover:text-terracotta-600 transition">Kain Tenun</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="radio" name="category" value="kriya" class="accent-terracotta-500 w-4 h-4" onchange="applyFilters()">
+                            <span class="text-earth-600 group-hover:text-terracotta-600 transition">Kriya & Anyaman</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Price Range Filter -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-earth-100 lg:block">
+                    <h3 class="font-serif font-bold text-lg text-earth-800 mb-4 border-b border-earth-100 pb-2">Maksimal Harga</h3>
+                    <div class="mb-4">
+                        <span class="text-xs text-earth-500">Batas Harga:</span>
+                        <div class="font-bold text-terracotta-600 text-lg" id="price-label">Rp 5.000.000</div>
+                    </div>
+                    <input type="range" id="price-range" min="50000" max="5000000" step="50000" value="5000000" 
+                           class="w-full h-2 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-terracotta-500"
+                           oninput="updatePriceLabel(this.value)" onchange="applyFilters()">
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="flex-1">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="font-serif text-2xl font-bold text-earth-800" id="section-title">Semua Produk</h2>
+                </div>
+                
+                <!-- Main Grid: 9 Products -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
+
+                <!-- More Options Section -->
+                <div class="text-center pt-8 border-t border-earth-200">
+                    <button class="bg-white border border-earth-300 text-earth-700 font-semibold py-3 px-8 rounded-full hover:bg-earth-50 transition shadow-sm mb-12">
+                        Muat Lebih Banyak
+                    </button>
+
+                    <h3 class="font-serif text-2xl font-bold text-earth-800 mb-6 text-left">Jelajahi Kategori Lain</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+                        <div class="group cursor-pointer">
+                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
+                                <img src="https://image.pollinations.ai/prompt/indonesian%20jewelry%20silver?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                            </div>
+                            <h4 class="font-bold text-earth-900">Perhiasan Perak</h4>
+                            <p class="text-xs text-earth-500">120+ Produk</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
+                                <img src="https://image.pollinations.ai/prompt/indonesian%20pottery%20clay?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                            </div>
+                            <h4 class="font-bold text-earth-900">Gerabah & Keramik</h4>
+                            <p class="text-xs text-earth-500">85+ Produk</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
+                                <img src="https://image.pollinations.ai/prompt/indonesian%20culinary%20spices?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                            </div>
+                            <h4 class="font-bold text-earth-900">Rempah & Kuliner</h4>
+                            <p class="text-xs text-earth-500">200+ Produk</p>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
+                                <img src="https://image.pollinations.ai/prompt/indonesian%20musical%20instrument%20angklung?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                            </div>
+                            <h4 class="font-bold text-earth-900">Alat Musik Tradisional</h4>
+                            <p class="text-xs text-earth-500">45+ Produk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-earth-900/50 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 translate-x-full flex flex-col" id="cart-panel">
+            <div class="px-6 py-4 border-b border-earth-100 flex justify-between items-center bg-earth-50">
+                <h2 class="font-serif text-xl font-bold text-earth-800">Keranjang Belanja</h2>
+                <button onclick="toggleCart()" class="text-earth-500 hover:text-terracotta-500 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Cart Items with +/- Buttons -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items-container"></div>
+            
+            <div class="border-t border-earth-100 p-6 bg-earth-50">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-earth-600">Subtotal</span>
+                    <span class="font-bold text-xl text-earth-900" id="cart-subtotal">Rp 0</span>
+                </div>
+                <button onclick="openCheckout()" id="checkout-btn" disabled class="w-full bg-terracotta-500 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-terracotta-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex justify-center items-center gap-2">
+                    <span>Lanjut ke Pembayaran</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal, Top Up Modal, Withdraw Modal, Account Modal (Tetap Sama) -->
+    
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="fixed inset-0 bg-earth-900/75 backdrop-blur-sm transition-opacity" onclick="closeCheckout()"></div>
+
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-auto overflow-hidden transform transition-all">
+                <div class="bg-earth-800 px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-serif text-xl text-white font-bold"><i class="fas fa-truck-fast mr-2"></i> Pengiriman & Pembayaran</h3>
+                    <button onclick="closeCheckout()" class="text-earth-200 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                
+                <div id="checkout-content" class="p-6 md:p-8 space-y-6">
+                    <!-- Step 1: Customer Info -->
+                    <div>
+                        <h4 class="font-bold text-earth-800 mb-3 border-b border-earth-100 pb-2">1. Informasi Penerima</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="cust-name" value="Sharyn Nadine Aulia" class="w-full border border-earth-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-terracotta-500 outline-none">
+                            <input type="tel" id="cust-phone" value="081234567890" class="w-full border border-earth-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-terracotta-500 outline-none">
+                            <textarea id="cust-address" class="w-full md:col-span-2 border border-earth-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-terracotta-500 outline-none h-20">Jl. Kertajaya Indah No. 45, Surabaya</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Delivery Method -->
+                    <div>
+                        <h4 class="font-bold text-earth-800 mb-3 border-b border-earth-100 pb-2">2. Layanan Pesan Antar</h4>
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between p-3 border border-earth-200 rounded-lg cursor-pointer hover:border-terracotta-500 hover:bg-terracotta-50 transition" onclick="updateTotal(15000)">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="delivery" value="reguler" class="accent-terracotta-600" checked>
+                                    <div>
+                                        <p class="font-bold text-earth-800">Reguler (JNE/SiCepat)</p>
+                                        <p class="text-xs text-earth-500">Estimasi 2-4 Hari</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-earth-700">Rp 15.000</span>
+                            </label>
+                            
+                            <label class="flex items-center justify-between p-3 border border-earth-200 rounded-lg cursor-pointer hover:border-terracotta-500 hover:bg-terracotta-50 transition" onclick="updateTotal(50000)">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="delivery" value="instant" class="accent-terracotta-600">
+                                    <div>
+                                        <p class="font-bold text-earth-800">Instant (Gojek/Grab)</p>
+                                        <p class="text-xs text-earth-500">Max 3 Jam</p>
+                                    </div>
+                                </div>
+                                <span class="font-bold text-earth-700">Rp 50.000</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Payment Method -->
+                    <div>
+                        <h4 class="font-bold text-earth-800 mb-3 border-b border-earth-100 pb-2">3. Metode Pembayaran</h4>
+                        <div class="space-y-3">
+                            <!-- Saldo Dompet Option -->
+                            <label class="flex items-center justify-between p-3 border border-earth-200 rounded-lg cursor-pointer hover:border-terracotta-500 hover:bg-terracotta-50 transition bg-earth-50">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="payment" value="wallet" class="accent-terracotta-600">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-terracotta-500 rounded-full flex items-center justify-center text-white"><i class="fas fa-wallet"></i></div>
+                                        <div>
+                                            <p class="font-bold text-earth-800">Saldo Dompet</p>
+                                            <p class="text-xs text-earth-600">Sisa Saldo: <span class="font-bold text-terracotta-600 display-balance">Loading...</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Manual Transfer Option -->
+                            <label class="flex items-center justify-between p-3 border border-earth-200 rounded-lg cursor-pointer hover:border-terracotta-500 hover:bg-terracotta-50 transition">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="payment" value="transfer" class="accent-terracotta-600" checked>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fab fa-whatsapp"></i></div>
+                                        <div>
+                                            <p class="font-bold text-earth-800">Transfer Manual / WA</p>
+                                            <p class="text-xs text-earth-500">Konfirmasi via Admin</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Summary -->
+                    <div class="bg-earth-50 p-4 rounded-xl">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg text-earth-900">Total Bayar</span>
+                            <span class="font-bold text-2xl text-terracotta-600" id="summary-total">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANIMATION CONTAINER -->
+                <div id="payment-animation" class="hidden p-8 flex flex-col items-center justify-center min-h-[400px]">
+                    <div id="anim-loading" class="text-center">
+                        <div class="loader mx-auto mb-4"></div>
+                        <h3 class="text-lg font-bold text-earth-800">Memproses Transaksi...</h3>
+                    </div>
+                    <div id="anim-success" class="hidden text-center">
+                        <div class="wrapper"> 
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+                                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> 
+                                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/> 
+                             </svg> 
+                        </div>
+                        <h3 class="text-xl font-bold text-green-600 mt-4">Transaksi Berhasil!</h3>
+                        <p class="text-earth-600 text-sm mb-4">Saldo Anda telah diperbarui.</p>
+                        <button onclick="closeCheckout()" class="mt-6 bg-earth-800 text-white px-6 py-2 rounded-full font-bold hover:bg-earth-900 transition">Selesai</button>
+                    </div>
+                    <div id="anim-failed" class="hidden text-center">
+                         <div class="wrapper"> 
+                             <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+                                 <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none"/> 
+                                 <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36"/> 
+                             </svg> 
+                        </div>
+                        <h3 class="text-xl font-bold text-red-600 mt-4">Saldo Tidak Cukup!</h3>
+                        <p class="text-earth-600 text-sm mb-4">Silakan isi ulang dompet Anda.</p>
+                        <div class="flex gap-2 justify-center mt-6">
+                             <button onclick="resetCheckoutUI()" class="bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded-full font-bold hover:bg-gray-50 transition">Kembali</button>
+                             <button onclick="openTopUpModalFromCheckout()" class="bg-terracotta-500 text-white px-6 py-2 rounded-full font-bold hover:bg-terracotta-600 transition">Top Up Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="checkout-footer" class="bg-gray-50 px-6 py-4 flex flex-row-reverse gap-3">
+                    <button onclick="processPayment()" class="w-full md:w-auto bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold py-2 px-8 rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                        <span>Bayar Sekarang</span>
+                    </button>
+                    <button onclick="closeCheckout()" class="w-full md:w-auto bg-white border border-gray-300 text-gray-700 font-semibold py-2 px-6 rounded-lg hover:bg-gray-50 transition">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Up Modal -->
+    <div id="topup-modal" class="fixed inset-0 z-[80] hidden overflow-y-auto">
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="fixed inset-0 bg-earth-900/75 backdrop-blur-sm transition-opacity" onclick="closeTopUpModal()"></div>
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full mx-auto overflow-hidden transform transition-all">
+                <div class="bg-terracotta-600 px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-serif text-xl text-white font-bold"><i class="fas fa-wallet mr-2"></i> Isi Ulang Saldo</h3>
+                    <button onclick="closeTopUpModal()" class="text-white/80 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="topup-content" class="p-6 space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-earth-700 mb-2">Nominal Top Up</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-3 text-earth-500 font-bold">Rp</span>
+                            <input type="number" id="topup-amount" oninput="generateTopUpQR()" class="w-full pl-12 pr-4 py-3 border border-earth-300 rounded-lg focus:ring-2 focus:ring-terracotta-500 outline-none font-bold text-lg text-earth-900" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="bg-earth-50 p-4 rounded-xl border border-earth-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/BANK_BRI_logo.svg" alt="BRI" class="h-8">
+                            <div class="h-8 w-px bg-earth-300"></div>
+                            <div>
+                                <p class="text-xs text-earth-500 uppercase tracking-wide">Virtual Account / Transfer</p>
+                                <p class="font-bold text-earth-900">NOVELITA OKTAFIAR</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-earth-200 flex justify-between items-center cursor-pointer hover:bg-gray-50 group" onclick="navigator.clipboard.writeText('614101004565509'); alert('No Rekening Disalin!');">
+                            <span class="font-mono font-bold text-xl text-terracotta-600 tracking-wider">6141 0100 4565 509</span>
+                            <i class="far fa-copy text-earth-400 group-hover:text-terracotta-500"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <p class="text-xs text-center text-earth-500 mb-3">Scan QRIS untuk pembayaran otomatis</p>
+                        <div id="qrcode-container" class="p-4 bg-white border-2 border-dashed border-earth-300 rounded-xl relative group">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+                    <button onclick="confirmTopUp()" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl transition">
+                        Konfirmasi Pembayaran
+                    </button>
+                </div>
+                <div id="topup-animation" class="hidden p-8 flex flex-col items-center justify-center min-h-[400px]">
+                    <div id="topup-loading" class="text-center">
+                        <div class="loader mx-auto mb-4"></div>
+                        <h3 class="text-lg font-bold text-earth-800">Memverifikasi Transfer...</h3>
+                    </div>
+                    <div id="topup-success" class="hidden text-center">
+                        <div class="wrapper"> 
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+                                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> 
+                                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/> 
+                             </svg> 
+                        </div>
+                        <h3 class="text-xl font-bold text-green-600 mt-4">Top Up Berhasil!</h3>
+                        <p class="text-earth-600 text-sm mb-4">Saldo dompet bertambah.</p>
+                        <h2 class="text-2xl font-bold text-earth-900 mb-6" id="success-topup-amount">Rp 0</h2>
+                        <button onclick="closeTopUpModal()" class="bg-earth-800 text-white px-8 py-2 rounded-full font-bold hover:bg-earth-900 transition">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdraw-modal" class="fixed inset-0 z-[85] hidden overflow-y-auto">
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="fixed inset-0 bg-earth-900/75 backdrop-blur-sm transition-opacity" onclick="closeWithdrawModal()"></div>
+            
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full mx-auto overflow-hidden transform transition-all">
+                <div class="bg-earth-800 px-6 py-4 flex justify-between items-center">
+                    <h3 class="font-serif text-xl text-white font-bold"><i class="fas fa-money-bill-wave mr-2"></i> Tarik Saldo</h3>
+                    <button onclick="closeWithdrawModal()" class="text-white/80 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="withdraw-content" class="p-6 space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-earth-700 mb-2">Bank Tujuan</label>
+                        <select id="withdraw-bank" class="w-full px-4 py-3 border border-earth-300 rounded-lg focus:ring-2 focus:ring-earth-500 outline-none text-earth-900 bg-white">
+                            <option value="BRI">BRI</option>
+                            <option value="BCA">BCA</option>
+                            <option value="MANDIRI">Bank Mandiri</option>
+                            <option value="BNI">BNI</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-earth-700 mb-2">Nomor Rekening</label>
+                        <input type="number" id="withdraw-rek" class="w-full px-4 py-3 border border-earth-300 rounded-lg focus:ring-2 focus:ring-earth-500 outline-none text-earth-900" placeholder="Contoh: 1234567890">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-earth-700 mb-2">Nama Pemilik Rekening</label>
+                        <input type="text" id="withdraw-name" class="w-full px-4 py-3 border border-earth-300 rounded-lg focus:ring-2 focus:ring-earth-500 outline-none text-earth-900" placeholder="Nama Lengkap">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-earth-700 mb-2">Nominal Penarikan</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-3 text-earth-500 font-bold">Rp</span>
+                            <input type="number" id="withdraw-amount" class="w-full pl-12 pr-4 py-3 border border-earth-300 rounded-lg focus:ring-2 focus:ring-earth-500 outline-none font-bold text-lg text-earth-900" placeholder="0">
+                        </div>
+                        <p class="text-xs text-earth-500 mt-1 text-right">Saldo Tersedia: <span class="font-bold text-terracotta-600 display-balance">Rp 0</span></p>
+                    </div>
+                    <button onclick="confirmWithdraw()" class="w-full bg-earth-800 hover:bg-earth-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-xl transition mt-4">
+                        Konfirmasi Penarikan
+                    </button>
+                </div>
+                <div id="withdraw-animation" class="hidden p-8 flex flex-col items-center justify-center min-h-[400px]">
+                    <div id="withdraw-loading" class="text-center">
+                        <div class="loader mx-auto mb-4 border-earth-300 border-t-earth-800"></div>
+                        <h3 class="text-lg font-bold text-earth-800">Memproses Penarikan...</h3>
+                        <p class="text-sm text-earth-500">Menghubungkan ke Bank...</p>
+                    </div>
+                    <div id="withdraw-success" class="hidden text-center">
+                        <div class="wrapper"> 
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+                                 <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/> 
+                                 <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/> 
+                             </svg> 
+                        </div>
+                        <h3 class="text-xl font-bold text-green-600 mt-4">Penarikan Berhasil!</h3>
+                        <p class="text-earth-600 text-sm mb-4">Dana akan masuk dalam 1x24 Jam.</p>
+                        <h2 class="text-2xl font-bold text-earth-900 mb-6" id="success-withdraw-amount">Rp 0</h2>
+                        <button onclick="closeWithdrawModal()" class="bg-terracotta-500 text-white px-8 py-2 rounded-full font-bold hover:bg-terracotta-600 transition">Tutup</button>
+                    </div>
+                     <div id="withdraw-failed" class="hidden text-center">
+                        <div class="wrapper"> 
+                            <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> 
+                                <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none"/> 
+                                <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36"/> 
+                            </svg> 
+                       </div>
+                       <h3 class="text-xl font-bold text-red-600 mt-4">Saldo Tidak Cukup!</h3>
+                       <p class="text-earth-600 text-sm mb-6">Penarikan melebihi sisa saldo Anda.</p>
+                       <button onclick="resetWithdrawUI()" class="bg-earth-200 text-earth-800 px-8 py-2 rounded-full font-bold hover:bg-earth-300 transition">Coba Lagi</button>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="account-modal" class="fixed inset-0 z-[80] hidden overflow-y-auto">
+        <div class="flex min-h-screen items-start justify-end p-4 pt-20">
+            <div class="fixed inset-0 transition-opacity" onclick="toggleAccountModal()"></div>
+            <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-all border border-earth-200 mt-2 mr-0 md:mr-8 slide-in-right h-[500px] flex flex-col">
+                <div class="bg-earth-800 p-6 text-white relative flex-shrink-0">
+                    <button onclick="toggleAccountModal()" class="absolute top-4 right-4 text-white/70 hover:text-white"><i class="fas fa-times"></i></button>
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sharyn" class="w-16 h-16 rounded-full border-2 border-white/50 bg-white">
+                        <div>
+                            <h3 class="font-bold text-lg">Sharyn Nadine Aulia</h3>
+                            <p class="text-xs text-earth-200">Member Priority</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                        <div class="mb-3">
+                            <p class="text-xs text-earth-200 uppercase tracking-widest mb-1">Saldo Dompet</p>
+                            <h2 class="text-2xl font-bold display-balance">Loading...</h2>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openTopUpModal()" class="flex-1 bg-white text-earth-800 px-3 py-2 rounded text-xs font-bold hover:bg-earth-100 transition flex items-center justify-center gap-1"><i class="fas fa-plus"></i> Top Up</button>
+                            <button onclick="openWithdrawModal()" class="flex-1 bg-terracotta-500 text-white px-3 py-2 rounded text-xs font-bold hover:bg-terracotta-600 transition flex items-center justify-center gap-1"><i class="fas fa-arrow-down"></i> Tarik</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-y-auto bg-white p-2" id="account-menu">
+                     <button onclick="showHistory()" class="w-full text-left px-4 py-3 hover:bg-earth-50 rounded flex items-center gap-3 text-earth-700 transition">
+                        <i class="fas fa-history w-6 text-center text-earth-400"></i> Riwayat Transaksi
+                    </button>
+                    <button class="w-full text-left px-4 py-3 hover:bg-red-50 rounded flex items-center gap-3 text-red-600 transition border-t border-earth-100 mt-2">
+                        <i class="fas fa-sign-out-alt w-6 text-center"></i> Keluar
+                    </button>
+                </div>
+                <div id="account-history" class="absolute inset-0 bg-white flex flex-col translate-x-full transition-transform duration-300">
+                     <div class="flex items-center gap-2 p-4 border-b border-earth-100">
+                         <button onclick="hideHistory()" class="text-earth-500 hover:text-earth-800"><i class="fas fa-arrow-left"></i></button>
+                         <h4 class="font-bold text-earth-800">Riwayat Pembelian</h4>
+                     </div>
+                     <div id="history-list" class="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript Logic -->
+    <script>
+        // --- GLOBAL STATE ---
+        let cart = [];
+        let currentShippingCost = 15000;
+        let userBalance = 16500000; 
+        let maxPriceFilter = 5000000;
+        let qrCodeObj = null; 
+        
+        let transactionHistory = [
+            { id: 'TRX-998', date: '2023-10-15', items: 'Batik Mega Mendung', total: 635000, status: 'Selesai' }
+        ];
+
+        // --- DATA PRODUK DENGAN TIER SYSTEM ---
+        // Tier: 'ekspor' (Premium), 'tumbuh' (Verified), 'rintis' (Standard)
+        const products = [
+            { 
+                id: 101, tier: 'tumbuh', 
+                name: "Batik Mega Mendung Royal", category: "batik", price: 450000, 
+                origin: "Cirebon", description: "Batik tulis tangan motif awan, pewarna alam indigo.", 
+                image_prompt: "batik mega mendung blue fabric" 
+            },
+            { 
+                id: 102, tier: 'rintis', 
+                name: "Selendang Tenun Sumba", category: "tenun", price: 850000, 
+                origin: "Sumba Timur", description: "Tenun ikat motif fauna (kuda) simbol kepemimpinan.", 
+                image_prompt: "sumba ikat weaving red fabric" 
+            },
+            { 
+                id: 103, tier: 'rintis', 
+                name: "Tas Rotan Bulat Bali", category: "kriya", price: 185000, 
+                origin: "Bali", description: "Tas anyaman rotan asli dengan lining batik.", 
+                image_prompt: "bali rattan round bag" 
+            },
+            { 
+                id: 104, tier: 'tumbuh', 
+                name: "Kemeja Batik Sogan", category: "batik", price: 275000, 
+                origin: "Solo", description: "Batik cap kombinasi tulis warna coklat klasik.", 
+                image_prompt: "batik solo shirt brown" 
+            },
+            { 
+                id: 105, tier: 'ekspor', 
+                name: "Ukiran Topeng Panji Premium", category: "kriya", price: 2500000, 
+                origin: "Yogyakarta", description: "Topeng kayu mahoni ukir tangan kualitas museum.", 
+                image_prompt: "wooden mask javanese high detail" 
+            },
+            { 
+                id: 106, tier: 'ekspor', 
+                name: "Royal Songket Palembang Gold", category: "tenun", price: 3500000, 
+                origin: "Palembang", description: "Kain songket mewah benang emas kristal asli.", 
+                image_prompt: "songket palembang gold fabric luxury" 
+            },
+             { 
+                id: 107, tier: 'ekspor', 
+                name: "Wayang Kulit Arjuna", category: "kriya", price: 1500000, 
+                origin: "Solo, Jawa Tengah", description: "Wayang kulit kerbau halus dengan tatahan detail.", 
+                image_prompt: "wayang kulit arjuna shadow puppet" 
+            },
+            { 
+                id: 108, tier: 'tumbuh', 
+                name: "Kain Ulos Batak Sadum", category: "tenun", price: 650000, 
+                origin: "Samosir, Sumut", description: "Kain ulos simbol sukacita dengan benang cerah.", 
+                image_prompt: "ulos batak fabric red traditional" 
+            },
+            { 
+                id: 109, tier: 'rintis', 
+                name: "Dompet Batik Pouch", category: "kriya", price: 45000, 
+                origin: "Yogyakarta", description: "Dompet serbaguna motif parang.", 
+                image_prompt: "batik pouch wallet small" 
+            }
+        ];
+
+        const formatRp = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+
+        function updateBalanceUI() {
+            document.querySelectorAll('.display-balance').forEach(el => el.innerText = formatRp(userBalance));
+        }
+        updateBalanceUI();
+
+        // --- RENDER PRODUCTS DENGAN BADGES SESUAI PAKET ---
+        function renderProducts(category = 'all', maxPrice = 5000000) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            const filtered = products.filter(p => (category === 'all' || p.category === category) && p.price <= maxPrice);
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-10 text-earth-500">Produk tidak ditemukan.</div>`;
+                return;
+            }
+
+            filtered.forEach((p, index) => {
+                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(p.image_prompt)}?width=400&height=300&nologo=true`;
+                const card = document.createElement('div');
+                
+                // Logic Tampilan Berdasarkan Tier (Tanpa mengubah Grid)
+                let badgeHTML = '';
+                let borderClass = 'border-earth-100';
+                let extraClass = '';
+                
+                if (p.tier === 'ekspor') {
+                    // Paket Ekspor: Border Gold, Lencana Crown/Official, Efek Shine
+                    borderClass = 'border-gold-400 border-2';
+                    extraClass = 'shine-effect shadow-lg';
+                    badgeHTML = `
+                        <div class="absolute top-2 right-2 bg-gold-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-md flex items-center gap-1 z-10">
+                            <i class="fas fa-crown"></i> Official
+                        </div>
+                    `;
+                } else if (p.tier === 'tumbuh') {
+                    // Paket Tumbuh: Centang Biru (Verified)
+                    badgeHTML = `
+                        <div class="absolute top-2 right-2 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm z-10" title="Terverifikasi">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    `;
+                }
+
+                card.className = `bg-white rounded-xl shadow-md border ${borderClass} overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col h-full fade-in ${extraClass}`;
+                card.style.animationDelay = `${index * 50}ms`;
+                
+                card.innerHTML = `
+                    <div class="relative h-56 overflow-hidden bg-earth-200">
+                        <img src="${imgUrl}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-earth-800 shadow-sm z-10">
+                            <i class="fas fa-map-marker-alt text-terracotta-500 mr-1"></i> ${p.origin}
+                        </div>
+                        ${badgeHTML}
+                    </div>
+                    <div class="p-5 flex flex-col flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-terracotta-600 bg-terracotta-50 px-2 py-0.5 rounded">${p.category}</span>
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-earth-900 mb-1 leading-tight group-hover:text-terracotta-600 transition">${p.name}</h3>
+                        <p class="text-sm text-earth-500 mb-4 line-clamp-2">${p.description}</p>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-earth-100">
+                            <span class="font-bold text-lg text-earth-800">${formatRp(p.price)}</span>
+                            <button onclick="addToCart(${p.id})" class="bg-earth-800 hover:bg-terracotta-500 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow-lg transform hover:-translate-y-1 active:scale-95">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>`;
+                grid.appendChild(card);
+            });
+        }
+        
+        function applyFilters() {
+            const selectedCat = document.querySelector('input[name="category"]:checked').value;
+            renderProducts(selectedCat, maxPriceFilter);
+        }
+        function updatePriceLabel(val) {
+            maxPriceFilter = parseInt(val);
+            document.getElementById('price-label').innerText = formatRp(maxPriceFilter);
+        }
+
+        // --- CART LOGIC DENGAN TAMBAH/KURANG ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) existing.qty++; else cart.push({ ...product, qty: 1 });
+            updateCartUI();
+            
+            const badge = document.getElementById('cart-badge');
+            badge.classList.add('animate-bounce');
+            setTimeout(() => badge.classList.remove('animate-bounce'), 1000);
+            if (cart.length === 1 && existing === undefined) toggleCart(true);
+        }
+
+        function updateQty(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    // Hapus jika qty 0
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            badge.innerText = totalQty;
+            badge.classList.toggle('opacity-0', totalQty === 0);
+            
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-earth-500 py-10">Keranjang kosong.</p>`;
+                document.getElementById('checkout-btn').disabled = true;
+            } else {
+                cart.forEach(item => {
+                    subtotal += item.price * item.qty;
+                    container.innerHTML += `
+                        <div class="flex gap-4 bg-white p-3 rounded-lg border border-earth-100 shadow-sm fade-in items-center">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-sm text-earth-800 line-clamp-1">${item.name}</h4>
+                                <div class="text-terracotta-600 font-bold text-sm mb-1">${formatRp(item.price)}</div>
+                            </div>
+                            <!-- Fitur Tambah Kurang -->
+                            <div class="flex items-center bg-earth-50 rounded-lg border border-earth-200 h-8">
+                                <button onclick="updateQty(${item.id}, -1)" class="w-8 h-full text-earth-600 hover:bg-earth-200 rounded-l-lg font-bold flex items-center justify-center transition">-</button>
+                                <span class="w-8 text-center text-xs font-bold text-earth-900">${item.qty}</span>
+                                <button onclick="updateQty(${item.id}, 1)" class="w-8 h-full text-earth-600 hover:bg-earth-200 rounded-r-lg font-bold flex items-center justify-center transition">+</button>
+                            </div>
+                        </div>`;
+                });
+                document.getElementById('checkout-btn').disabled = false;
+            }
+            updateSummary(subtotal);
+        }
+
+        function updateSummary(subtotal) {
+            document.getElementById('cart-subtotal').innerText = formatRp(subtotal);
+            document.getElementById('summary-total').innerText = formatRp(subtotal + currentShippingCost);
+        }
+
+        // --- MODAL & LOGIC LAINNYA (SAMA SEPERTI SEBELUMNYA) ---
+        function toggleCart(forceOpen) {
+            const panel = document.getElementById('cart-panel');
+            const sidebar = document.getElementById('cart-sidebar');
+            if (sidebar.classList.contains('hidden') || forceOpen) {
+                sidebar.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+            } else {
+                panel.classList.add('translate-x-full');
+                setTimeout(() => sidebar.classList.add('hidden'), 300);
+            }
+        }
+        function toggleAccountModal() {
+            document.getElementById('account-modal').classList.toggle('hidden');
+            hideHistory();
+        }
+
+        function openCheckout() {
+            toggleCart();
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            resetCheckoutUI();
+        }
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            if(cart.length === 0) renderProducts();
+        }
+        function resetCheckoutUI() {
+            document.getElementById('checkout-content').classList.remove('hidden');
+            document.getElementById('checkout-footer').classList.remove('hidden');
+            document.getElementById('payment-animation').classList.add('hidden');
+            document.getElementById('anim-loading').classList.remove('hidden');
+            document.getElementById('anim-success').classList.add('hidden');
+            document.getElementById('anim-failed').classList.add('hidden');
+        }
+
+        function openTopUpModal() {
+            document.getElementById('account-modal').classList.add('hidden');
+            document.getElementById('topup-modal').classList.remove('hidden');
+            document.getElementById('topup-content').classList.remove('hidden');
+            document.getElementById('topup-animation').classList.add('hidden');
+            document.getElementById('topup-amount').value = '';
+            generateTopUpQR(); 
+        }
+
+        function openTopUpModalFromCheckout() {
+             document.getElementById('checkout-modal').classList.add('hidden'); 
+             openTopUpModal();
+        }
+
+        function closeTopUpModal() {
+            document.getElementById('topup-modal').classList.add('hidden');
+        }
+
+        function generateTopUpQR() {
+            const amount = document.getElementById('topup-amount').value || 0;
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = ''; 
+            const qrData = `BRI:614101004565509;NOVELITA OKTAFIAR;AMOUNT:${amount}`;
+            new QRCode(qrContainer, { text: qrData, width: 150, height: 150, colorDark : "#2b1c15", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
+        }
+
+        function confirmTopUp() {
+            const amountInput = document.getElementById('topup-amount');
+            const amount = parseInt(amountInput.value);
+            if (!amount || amount < 10000) { alert("Minimal Top Up Rp 10.000"); return; }
+
+            document.getElementById('topup-content').classList.add('hidden');
+            document.getElementById('topup-animation').classList.remove('hidden');
+            document.getElementById('topup-loading').classList.remove('hidden');
+            document.getElementById('topup-success').classList.add('hidden');
+
+            setTimeout(() => {
+                document.getElementById('topup-loading').classList.add('hidden');
+                document.getElementById('topup-success').classList.remove('hidden');
+                document.getElementById('success-topup-amount').innerText = `+ ${formatRp(amount)}`;
+                userBalance += amount;
+                updateBalanceUI();
+                transactionHistory.push({ id: 'TOPUP-' + Math.floor(Math.random() * 1000), date: new Date().toLocaleDateString('id-ID'), items: 'Isi Ulang Saldo (BRI)', total: amount, status: 'Masuk' });
+            }, 2000);
+        }
+
+        function openWithdrawModal() {
+            document.getElementById('account-modal').classList.add('hidden');
+            document.getElementById('withdraw-modal').classList.remove('hidden');
+            resetWithdrawUI();
+        }
+
+        function closeWithdrawModal() {
+            document.getElementById('withdraw-modal').classList.add('hidden');
+        }
+
+        function resetWithdrawUI() {
+            document.getElementById('withdraw-content').classList.remove('hidden');
+            document.getElementById('withdraw-animation').classList.add('hidden');
+            document.getElementById('withdraw-loading').classList.remove('hidden');
+            document.getElementById('withdraw-success').classList.add('hidden');
+            document.getElementById('withdraw-failed').classList.add('hidden');
+            
+            document.getElementById('withdraw-rek').value = '';
+            document.getElementById('withdraw-name').value = '';
+            document.getElementById('withdraw-amount').value = '';
+        }
+
+        function confirmWithdraw() {
+            const bank = document.getElementById('withdraw-bank').value;
+            const rek = document.getElementById('withdraw-rek').value;
+            const name = document.getElementById('withdraw-name').value;
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+
+            if (!rek || !name || !amount) {
+                alert("Mohon lengkapi semua data.");
+                return;
+            }
+
+            if (amount < 50000) {
+                alert("Minimal penarikan Rp 50.000");
+                return;
+            }
+
+            document.getElementById('withdraw-content').classList.add('hidden');
+            document.getElementById('withdraw-animation').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('withdraw-loading').classList.add('hidden');
+                
+                if (amount > userBalance) {
+                    document.getElementById('withdraw-failed').classList.remove('hidden');
+                } else {
+                    document.getElementById('withdraw-success').classList.remove('hidden');
+                    document.getElementById('success-withdraw-amount').innerText = `- ${formatRp(amount)}`;
+                    
+                    userBalance -= amount;
+                    updateBalanceUI();
+                    
+                    transactionHistory.push({
+                        id: 'WD-' + Math.floor(Math.random() * 1000),
+                        date: new Date().toLocaleDateString('id-ID'),
+                        items: `Penarikan ke ${bank} (${name})`,
+                        total: amount,
+                        status: 'Keluar'
+                    });
+                }
+            }, 2000);
+        }
+
+        function updateTotal(cost) {
+            currentShippingCost = cost;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            updateSummary(subtotal);
+        }
+
+        function processPayment() {
+            const name = document.getElementById('cust-name').value;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const total = subtotal + currentShippingCost;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+            if(!name) { alert("Isi nama penerima."); return; }
+
+            if (paymentMethod === 'transfer') {
+                let msg = `Halo RupaNusa, order:\n`;
+                cart.forEach((i,x) => msg+=`${x+1}. ${i.name} (${i.qty})\n`);
+                msg+=`Total: ${formatRp(total)}`;
+                window.open(`https://wa.me/6281331023325?text=${encodeURIComponent(msg)}`);
+                closeCheckout();
+                return;
+            }
+
+            document.getElementById('checkout-content').classList.add('hidden');
+            document.getElementById('checkout-footer').classList.add('hidden');
+            document.getElementById('payment-animation').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('anim-loading').classList.add('hidden');
+                
+                if (total > userBalance) {
+                    document.getElementById('anim-failed').classList.remove('hidden');
+                } else {
+                    document.getElementById('anim-success').classList.remove('hidden');
+                    userBalance -= total;
+                    updateBalanceUI();
+                    
+                    const itemNames = cart.map(i => i.name).join(', ');
+                    transactionHistory.push({
+                        id: 'TRX-' + Math.floor(Math.random() * 10000),
+                        date: new Date().toLocaleDateString('id-ID'),
+                        items: itemNames,
+                        total: total,
+                        status: 'Selesai'
+                    });
+                    cart = [];
+                    updateCartUI();
+                }
+            }, 1500);
+        }
+
+        function showHistory() {
+            document.getElementById('account-menu').classList.add('-translate-x-full');
+            document.getElementById('account-history').classList.remove('translate-x-full');
+            
+            const container = document.getElementById('history-list');
+            container.innerHTML = '';
+            [...transactionHistory].reverse().forEach(trx => {
+                const isTopup = trx.status === 'Masuk';
+                const isWithdraw = trx.status === 'Keluar';
+                let colorClass = 'text-terracotta-600'; 
+                if (isTopup) colorClass = 'text-green-600';
+                if (isWithdraw) colorClass = 'text-red-600';
+
+                container.innerHTML += `
+                    <div class="bg-white p-3 rounded-lg border border-earth-200 shadow-sm">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-xs font-bold text-earth-500">${trx.id}</span>
+                            <span class="text-xs text-earth-400">${trx.date}</span>
+                        </div>
+                        <p class="text-sm font-medium line-clamp-1">${trx.items}</p>
+                        <div class="text-right font-bold text-sm pt-2 ${colorClass}">
+                            ${isTopup ? '+' : '-'}${formatRp(trx.total)}
+                        </div>
+                    </div>`;
+            });
+        }
+        function hideHistory() {
+            document.getElementById('account-menu').classList.remove('-translate-x-full');
+            document.getElementById('account-history').classList.add('translate-x-full');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
