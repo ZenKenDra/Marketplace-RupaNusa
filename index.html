@@ -145,7 +145,7 @@
             <!-- Sidebar Filter -->
             <aside class="w-full lg:w-64 flex-shrink-0 space-y-8">
                 <!-- Categories -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-earth-100">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-earth-100 sticky top-24">
                     <h3 class="font-serif font-bold text-lg text-earth-800 mb-4 border-b border-earth-100 pb-2">Kategori</h3>
                     <div class="space-y-2" id="category-filters">
                         <label class="flex items-center gap-3 cursor-pointer group">
@@ -165,18 +165,17 @@
                             <span class="text-earth-600 group-hover:text-terracotta-600 transition">Kriya & Anyaman</span>
                         </label>
                     </div>
-                </div>
-
-                <!-- Price Range Filter -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-earth-100 lg:block">
-                    <h3 class="font-serif font-bold text-lg text-earth-800 mb-4 border-b border-earth-100 pb-2">Maksimal Harga</h3>
-                    <div class="mb-4">
-                        <span class="text-xs text-earth-500">Batas Harga:</span>
-                        <div class="font-bold text-terracotta-600 text-lg" id="price-label">Rp 5.000.000</div>
+                    
+                    <div class="mt-8">
+                        <h3 class="font-serif font-bold text-lg text-earth-800 mb-4 border-b border-earth-100 pb-2">Maksimal Harga</h3>
+                        <div class="mb-4">
+                            <span class="text-xs text-earth-500">Batas Harga:</span>
+                            <div class="font-bold text-terracotta-600 text-lg" id="price-label">Rp 5.000.000</div>
+                        </div>
+                        <input type="range" id="price-range" min="50000" max="5000000" step="50000" value="5000000" 
+                               class="w-full h-2 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-terracotta-500"
+                               oninput="updatePriceLabel(this.value)" onchange="applyFilters()">
                     </div>
-                    <input type="range" id="price-range" min="50000" max="5000000" step="50000" value="5000000" 
-                           class="w-full h-2 bg-earth-200 rounded-lg appearance-none cursor-pointer accent-terracotta-500"
-                           oninput="updatePriceLabel(this.value)" onchange="applyFilters()">
                 </div>
             </aside>
 
@@ -186,49 +185,31 @@
                     <h2 class="font-serif text-2xl font-bold text-earth-800" id="section-title">Semua Produk</h2>
                 </div>
                 
-                <!-- Main Grid: 9 Products -->
-                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
+                <!-- Main Grid -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></div>
 
-                <!-- More Options Section -->
-                <div class="text-center pt-8 border-t border-earth-200">
-                    <button class="bg-white border border-earth-300 text-earth-700 font-semibold py-3 px-8 rounded-full hover:bg-earth-50 transition shadow-sm mb-12">
-                        Muat Lebih Banyak
+                <!-- Load More Button (Infinite Logic) -->
+                <div class="text-center py-8">
+                    <button id="load-more-btn" onclick="loadMoreProducts()" class="bg-white border border-earth-300 text-earth-700 font-semibold py-3 px-8 rounded-full hover:bg-earth-50 transition shadow-sm group">
+                        <span id="btn-text">Muat Lebih Banyak</span>
+                        <i class="fas fa-chevron-down ml-2 group-hover:translate-y-1 transition-transform"></i>
                     </button>
-
-                    <h3 class="font-serif text-2xl font-bold text-earth-800 mb-6 text-left">Jelajahi Kategori Lain</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-                        <div class="group cursor-pointer">
-                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
-                                <img src="https://image.pollinations.ai/prompt/indonesian%20jewelry%20silver?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
-                            </div>
-                            <h4 class="font-bold text-earth-900">Perhiasan Perak</h4>
-                            <p class="text-xs text-earth-500">120+ Produk</p>
-                        </div>
-                        <div class="group cursor-pointer">
-                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
-                                <img src="https://image.pollinations.ai/prompt/indonesian%20pottery%20clay?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
-                            </div>
-                            <h4 class="font-bold text-earth-900">Gerabah & Keramik</h4>
-                            <p class="text-xs text-earth-500">85+ Produk</p>
-                        </div>
-                        <div class="group cursor-pointer">
-                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
-                                <img src="https://image.pollinations.ai/prompt/indonesian%20culinary%20spices?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
-                            </div>
-                            <h4 class="font-bold text-earth-900">Rempah & Kuliner</h4>
-                            <p class="text-xs text-earth-500">200+ Produk</p>
-                        </div>
-                        <div class="group cursor-pointer">
-                            <div class="h-32 bg-earth-200 rounded-lg overflow-hidden mb-2 relative">
-                                <img src="https://image.pollinations.ai/prompt/indonesian%20musical%20instrument%20angklung?nologo=true" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
-                            </div>
-                            <h4 class="font-bold text-earth-900">Alat Musik Tradisional</h4>
-                            <p class="text-xs text-earth-500">45+ Produk</p>
-                        </div>
+                    
+                    <!-- Loader (Hidden by default) -->
+                    <div id="loader-icon" class="hidden">
+                        <div class="loader mx-auto"></div>
+                        <p class="text-xs text-earth-400 mt-2 animate-pulse">Mengambil produk dari pengrajin...</p>
+                    </div>
+                </div>
+                
+                <!-- Extra Section (To make it feel fuller) -->
+                <div class="mt-12 pt-8 border-t border-earth-200">
+                    <h3 class="font-serif text-xl font-bold text-earth-800 mb-6">Jelajahi Kategori Lain</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Perhiasan</div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Gerabah</div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Kuliner</div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Musik</div>
                     </div>
                 </div>
             </div>
@@ -260,8 +241,6 @@
         </div>
     </div>
 
-    <!-- Checkout Modal, Top Up Modal, Withdraw Modal, Account Modal (Tetap Sama) -->
-    
     <!-- Checkout Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
@@ -587,14 +566,15 @@
         let userBalance = 16500000; 
         let maxPriceFilter = 5000000;
         let qrCodeObj = null; 
+        let currentProducts = []; // To store displayed products
+        let lastId = 200; // Counter for dynamic products
         
         let transactionHistory = [
             { id: 'TRX-998', date: '2023-10-15', items: 'Batik Mega Mendung', total: 635000, status: 'Selesai' }
         ];
 
-        // --- DATA PRODUK DENGAN TIER SYSTEM ---
-        // Tier: 'ekspor' (Premium), 'tumbuh' (Verified), 'rintis' (Standard)
-        const products = [
+        // --- DATA PRODUK AWAL (STATIC) ---
+        const initialProducts = [
             { 
                 id: 101, tier: 'tumbuh', 
                 name: "Batik Mega Mendung Royal", category: "batik", price: 450000, 
@@ -651,6 +631,48 @@
             }
         ];
 
+        // Initialize with static products
+        currentProducts = [...initialProducts];
+
+        // --- INFINITE GENERATOR LOGIC ---
+        const randomTypes = ["Batik", "Tenun", "Keramik", "Anyaman", "Ukiran", "Wayang"];
+        const randomAdjectives = ["Halus", "Kuno", "Modern", "Alam", "Premium", "Lurik", "Pesisir", "Keraton"];
+        const randomOrigins = ["Solo", "Jogja", "Bali", "Lombok", "Medan", "Padang", "Madura", "Pekalongan"];
+        const randomTiers = ['rintis', 'tumbuh', 'ekspor'];
+
+        function generateRandomProducts(count) {
+            const newItems = [];
+            for(let i=0; i<count; i++) {
+                const type = randomTypes[Math.floor(Math.random() * randomTypes.length)];
+                const adj = randomAdjectives[Math.floor(Math.random() * randomAdjectives.length)];
+                const origin = randomOrigins[Math.floor(Math.random() * randomOrigins.length)];
+                const tier = randomTiers[Math.floor(Math.random() * randomTiers.length)];
+                
+                let category = 'kriya';
+                if(type === 'Batik') category = 'batik';
+                if(type === 'Tenun') category = 'tenun';
+
+                let basePrice = 50000;
+                if(tier === 'tumbuh') basePrice = 250000;
+                if(tier === 'ekspor') basePrice = 1000000;
+                
+                const price = basePrice + (Math.floor(Math.random() * 10) * 15000);
+
+                const newItem = {
+                    id: ++lastId,
+                    tier: tier,
+                    name: `${type} ${adj} ${origin}`,
+                    category: category,
+                    price: price,
+                    origin: origin,
+                    description: `Produk ${type.toLowerCase()} asli dari pengrajin ${origin} dengan kualitas ${adj.toLowerCase()}.`,
+                    image_prompt: `indonesian ${type.toLowerCase()} ${adj.toLowerCase()} traditional craft`
+                };
+                newItems.push(newItem);
+            }
+            return newItems;
+        }
+
         const formatRp = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
 
         function updateBalanceUI() {
@@ -658,12 +680,12 @@
         }
         updateBalanceUI();
 
-        // --- RENDER PRODUCTS DENGAN BADGES SESUAI PAKET ---
+        // --- RENDER FUNCTION ---
         function renderProducts(category = 'all', maxPrice = 5000000) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
             
-            const filtered = products.filter(p => (category === 'all' || p.category === category) && p.price <= maxPrice);
+            const filtered = currentProducts.filter(p => (category === 'all' || p.category === category) && p.price <= maxPrice);
 
             if(filtered.length === 0) {
                 grid.innerHTML = `<div class="col-span-3 text-center py-10 text-earth-500">Produk tidak ditemukan.</div>`;
@@ -674,35 +696,26 @@
                 const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(p.image_prompt)}?width=400&height=300&nologo=true`;
                 const card = document.createElement('div');
                 
-                // Logic Tampilan Berdasarkan Tier (Tanpa mengubah Grid)
                 let badgeHTML = '';
                 let borderClass = 'border-earth-100';
                 let extraClass = '';
                 
                 if (p.tier === 'ekspor') {
-                    // Paket Ekspor: Border Gold, Lencana Crown/Official, Efek Shine
                     borderClass = 'border-gold-400 border-2';
                     extraClass = 'shine-effect shadow-lg';
-                    badgeHTML = `
-                        <div class="absolute top-2 right-2 bg-gold-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-md flex items-center gap-1 z-10">
-                            <i class="fas fa-crown"></i> Official
-                        </div>
-                    `;
+                    badgeHTML = `<div class="absolute top-2 right-2 bg-gold-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-md flex items-center gap-1 z-10"><i class="fas fa-crown"></i> Official</div>`;
                 } else if (p.tier === 'tumbuh') {
-                    // Paket Tumbuh: Centang Biru (Verified)
-                    badgeHTML = `
-                        <div class="absolute top-2 right-2 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm z-10" title="Terverifikasi">
-                            <i class="fas fa-check"></i>
-                        </div>
-                    `;
+                    badgeHTML = `<div class="absolute top-2 right-2 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm z-10" title="Terverifikasi"><i class="fas fa-check"></i></div>`;
                 }
 
                 card.className = `bg-white rounded-xl shadow-md border ${borderClass} overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col h-full fade-in ${extraClass}`;
-                card.style.animationDelay = `${index * 50}ms`;
+                
+                // Animasi sederhana untuk item baru
+                card.style.animationDelay = `${(index % 6) * 100}ms`; 
                 
                 card.innerHTML = `
                     <div class="relative h-56 overflow-hidden bg-earth-200">
-                        <img src="${imgUrl}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <img src="${imgUrl}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-earth-800 shadow-sm z-10">
                             <i class="fas fa-map-marker-alt text-terracotta-500 mr-1"></i> ${p.origin}
                         </div>
@@ -724,19 +737,52 @@
                 grid.appendChild(card);
             });
         }
-        
+
+        // --- BUTTON TRIGGERED INFINITE LOADING ---
+        function loadMoreProducts() {
+            const btn = document.getElementById('load-more-btn');
+            const loader = document.getElementById('loader-icon');
+            const btnText = document.getElementById('btn-text');
+
+            // UI Loading State
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.disabled = true;
+            btnText.innerText = "Memuat...";
+            loader.classList.remove('hidden');
+
+            // Simulate API Delay
+            setTimeout(() => {
+                // Generate 6 produk baru
+                const newProducts = generateRandomProducts(6); 
+                currentProducts = [...currentProducts, ...newProducts];
+                
+                // Re-render
+                const selectedCat = document.querySelector('input[name="category"]:checked').value;
+                const priceVal = document.getElementById('price-range').value;
+                renderProducts(selectedCat, priceVal);
+                
+                // Reset UI
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.disabled = false;
+                btnText.innerText = "Muat Lebih Banyak";
+                loader.classList.add('hidden');
+                
+            }, 800); // 0.8s delay agar terasa natural
+        }
+
         function applyFilters() {
             const selectedCat = document.querySelector('input[name="category"]:checked').value;
             renderProducts(selectedCat, maxPriceFilter);
         }
+        
         function updatePriceLabel(val) {
             maxPriceFilter = parseInt(val);
             document.getElementById('price-label').innerText = formatRp(maxPriceFilter);
         }
 
-        // --- CART LOGIC DENGAN TAMBAH/KURANG ---
+        // --- CART LOGIC ---
         function addToCart(id) {
-            const product = products.find(p => p.id === id);
+            const product = currentProducts.find(p => p.id === id); 
             const existing = cart.find(item => item.id === id);
             if (existing) existing.qty++; else cart.push({ ...product, qty: 1 });
             updateCartUI();
@@ -751,10 +797,7 @@
             const item = cart.find(item => item.id === id);
             if (item) {
                 item.qty += change;
-                if (item.qty <= 0) {
-                    // Hapus jika qty 0
-                    cart = cart.filter(i => i.id !== id);
-                }
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
                 updateCartUI();
             }
         }
@@ -782,7 +825,6 @@
                                 <h4 class="font-bold text-sm text-earth-800 line-clamp-1">${item.name}</h4>
                                 <div class="text-terracotta-600 font-bold text-sm mb-1">${formatRp(item.price)}</div>
                             </div>
-                            <!-- Fitur Tambah Kurang -->
                             <div class="flex items-center bg-earth-50 rounded-lg border border-earth-200 h-8">
                                 <button onclick="updateQty(${item.id}, -1)" class="w-8 h-full text-earth-600 hover:bg-earth-200 rounded-l-lg font-bold flex items-center justify-center transition">-</button>
                                 <span class="w-8 text-center text-xs font-bold text-earth-900">${item.qty}</span>
@@ -800,7 +842,7 @@
             document.getElementById('summary-total').innerText = formatRp(subtotal + currentShippingCost);
         }
 
-        // --- MODAL & LOGIC LAINNYA (SAMA SEPERTI SEBELUMNYA) ---
+        // --- MODAL & LOGIC LAINNYA ---
         function toggleCart(forceOpen) {
             const panel = document.getElementById('cart-panel');
             const sidebar = document.getElementById('cart-sidebar');
@@ -824,7 +866,6 @@
         }
         function closeCheckout() {
             document.getElementById('checkout-modal').classList.add('hidden');
-            if(cart.length === 0) renderProducts();
         }
         function resetCheckoutUI() {
             document.getElementById('checkout-content').classList.remove('hidden');
@@ -897,7 +938,6 @@
             document.getElementById('withdraw-loading').classList.remove('hidden');
             document.getElementById('withdraw-success').classList.add('hidden');
             document.getElementById('withdraw-failed').classList.add('hidden');
-            
             document.getElementById('withdraw-rek').value = '';
             document.getElementById('withdraw-name').value = '';
             document.getElementById('withdraw-amount').value = '';
@@ -930,10 +970,8 @@
                 } else {
                     document.getElementById('withdraw-success').classList.remove('hidden');
                     document.getElementById('success-withdraw-amount').innerText = `- ${formatRp(amount)}`;
-                    
                     userBalance -= amount;
                     updateBalanceUI();
-                    
                     transactionHistory.push({
                         id: 'WD-' + Math.floor(Math.random() * 1000),
                         date: new Date().toLocaleDateString('id-ID'),
@@ -974,19 +1012,16 @@
 
             setTimeout(() => {
                 document.getElementById('anim-loading').classList.add('hidden');
-                
                 if (total > userBalance) {
                     document.getElementById('anim-failed').classList.remove('hidden');
                 } else {
                     document.getElementById('anim-success').classList.remove('hidden');
                     userBalance -= total;
                     updateBalanceUI();
-                    
-                    const itemNames = cart.map(i => i.name).join(', ');
                     transactionHistory.push({
                         id: 'TRX-' + Math.floor(Math.random() * 10000),
                         date: new Date().toLocaleDateString('id-ID'),
-                        items: itemNames,
+                        items: cart.map(i => i.name).join(', '),
                         total: total,
                         status: 'Selesai'
                     });
@@ -1027,6 +1062,7 @@
             document.getElementById('account-history').classList.add('translate-x-full');
         }
 
+        // Init
         renderProducts();
     </script>
 </body>
