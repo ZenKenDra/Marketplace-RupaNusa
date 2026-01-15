@@ -431,7 +431,7 @@
             { id: 'TRX-998', date: '2023-10-15', items: 'Batik Mega Mendung', total: 635000, status: 'Selesai' }
         ];
 
-        // --- DATA PRODUK LENGKAP (UPDATED IMAGES) ---
+        // --- DATA PRODUK LENGKAP (FIXED GOOGLE DRIVE IMAGES) ---
         const products = [
             { 
                 id: 101, tier: 'tumbuh', 
@@ -447,7 +447,8 @@
                 origin: "Sumba Timur", 
                 description: "Tenun ikat Sumba dengan motif fauna (kuda) yang melambangkan kepemimpinan dan kekuatan. Ditenun secara manual menggunakan alat gedogan tradisional. Proses pembuatan memakan waktu hingga 3 minggu.", 
                 rating: 4.7, sold: 45, stock: 8,
-                image: "https://drive.google.com/uc?export=view&id=1MI-tqSXDr2eMhn7jS3UkNVmk34AJEgNX" 
+                // FIX: Menggunakan lh3.googleusercontent.com
+                image: "https://lh3.googleusercontent.com/d/1MI-tqSXDr2eMhn7jS3UkNVmk34AJEgNX" 
             },
             { 
                 id: 103, tier: 'rintis', 
@@ -455,7 +456,7 @@
                 origin: "Bali", 
                 description: "Tas selempang bulat kekinian dari anyaman rotan asli Bali (Ata). Dilengkapi dengan lining kain batik di bagian dalam dan penutup kancing klip. Tahan lama dan estetik untuk OOTD.", 
                 rating: 4.9, sold: 890, stock: 50,
-                image: "https://drive.google.com/uc?export=view&id=1QU4FEKzNPPUWyIpRc75KJDiACpMBvjCh" 
+                image: "https://lh3.googleusercontent.com/d/1QU4FEKzNPPUWyIpRc75KJDiACpMBvjCh" 
             },
             { 
                 id: 104, tier: 'tumbuh', 
@@ -463,7 +464,7 @@
                 origin: "Solo", 
                 description: "Kemeja batik pria dengan motif Sogan klasik khas Solo. Perpaduan teknik cap dan tulis memberikan detail yang tajam. Warna cokelat klasik yang elegan dan berwibawa.", 
                 rating: 4.6, sold: 210, stock: 25,
-                image: "https://drive.google.com/uc?export=view&id=10qQkIrFdHJLz5cQ7PJP_p_6hAB1bdZGK" 
+                image: "https://lh3.googleusercontent.com/d/10qQkIrFdHJLz5cQ7PJP_p_6hAB1bdZGK" 
             },
             { 
                 id: 105, tier: 'ekspor', 
@@ -471,7 +472,7 @@
                 origin: "Yogyakarta", 
                 description: "Masterpiece ukiran topeng Panji dari kayu mahoni pilihan. Dipahat oleh maestro ukir Yogyakarta dengan detail anatomi wajah yang halus dan ekspresif. Finishing natural polish. Sangat cocok untuk kolektor seni.", 
                 rating: 5.0, sold: 12, stock: 3,
-                image: "https://drive.google.com/uc?export=view&id=1dHAhlVziw3TOXxyFVHoL-CXXDBUys0Ps" 
+                image: "https://lh3.googleusercontent.com/d/1dHAhlVziw3TOXxyFVHoL-CXXDBUys0Ps" 
             },
             { 
                 id: 106, tier: 'ekspor', 
@@ -487,7 +488,7 @@
                 origin: "Solo, Jawa Tengah", 
                 description: "Wayang kulit tokoh Arjuna, dibuat dari kulit kerbau asli yang disamak halus. Tatahan (ukiran kulit) sangat detail dan sunggingan (pewarnaan) menggunakan cat pigmen berkualitas tinggi lengkap dengan gapit tanduk.", 
                 rating: 4.9, sold: 34, stock: 10,
-                image: "https://drive.google.com/uc?export=view&id=1QKSWY5hxPa0ngFdIepF1T0LULf_Fq5VW" 
+                image: "https://lh3.googleusercontent.com/d/1QKSWY5hxPa0ngFdIepF1T0LULf_Fq5VW" 
             },
             { 
                 id: 108, tier: 'tumbuh', 
@@ -495,7 +496,7 @@
                 origin: "Samosir, Sumut", 
                 description: "Ulos Sadum dengan warna dasar merah cerah, melambangkan sukacita dan semangat. Biasa digunakan sebagai selendang dalam pesta adat Batak. Benang katun mercerized yang berkilau.", 
                 rating: 4.8, sold: 78, stock: 20,
-                image: "https://drive.google.com/uc?export=view&id=1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv" 
+                image: "https://lh3.googleusercontent.com/d/1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv" 
             },
             { 
                 id: 109, tier: 'rintis', 
@@ -503,7 +504,7 @@
                 origin: "Yogyakarta", 
                 description: "Pouch serbaguna dari perca kain batik. Cocok untuk tempat kosmetik, alat tulis, atau uang receh. Motif batik parang/kawung random. Souvenir murah meriah tapi berbudaya.", 
                 rating: 4.5, sold: 1500, stock: 200,
-                image: "https://drive.google.com/uc?export=view&id=1DfKi9SHzTf20WWAUSKjedfwdRoSLRc9P" 
+                image: "https://lh3.googleusercontent.com/d/1DfKi9SHzTf20WWAUSKjedfwdRoSLRc9P" 
             }
         ];
 
@@ -527,7 +528,7 @@
             }
 
             filtered.forEach((p, index) => {
-                const imgUrl = p.image; // Now using direct URL from object
+                const imgUrl = p.image; 
                 const card = document.createElement('div');
                 
                 let badgeHTML = '';
@@ -551,9 +552,12 @@
                     openProductDetail(p.id);
                 };
                 
+                // Tambahkan onerror pada img agar jika tetap gagal, kembali ke gambar AI
                 card.innerHTML = `
                     <div class="relative h-56 overflow-hidden bg-earth-200">
-                        <img src="${imgUrl}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <img src="${imgUrl}" alt="${p.name}" 
+                             onerror="this.onerror=null; this.src='https://image.pollinations.ai/prompt/indonesian%20traditional%20craft%20${p.category}?width=600&height=600&nologo=true';" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-earth-800 shadow-sm z-10">
                             <i class="fas fa-map-marker-alt text-terracotta-500 mr-1"></i> ${p.origin}
                         </div>
@@ -585,7 +589,14 @@
             const modal = document.getElementById('product-detail-modal');
             
             // Populate Data
-            document.getElementById('detail-image').src = p.image; // Use direct image URL
+            // Tambahkan fallback onerror juga di modal detail
+            const imgEl = document.getElementById('detail-image');
+            imgEl.src = p.image;
+            imgEl.onerror = function() {
+                this.onerror = null;
+                this.src = `https://image.pollinations.ai/prompt/indonesian%20traditional%20craft%20${p.category}?width=600&height=600&nologo=true`;
+            };
+
             document.getElementById('detail-name').innerText = p.name;
             document.getElementById('detail-price').innerText = formatRp(p.price);
             document.getElementById('detail-desc').innerText = p.description;
