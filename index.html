@@ -114,6 +114,7 @@
         
         <!-- Header Banner -->
         <div class="bg-earth-800 rounded-2xl p-8 mb-10 relative overflow-hidden text-white shadow-xl">
+            <!-- Stable Unsplash Banner -->
             <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1599577907470-c75c57b1c4c1?q=80&w=2070')] bg-cover bg-center"></div>
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="text-left">
@@ -179,16 +180,16 @@
                 <!-- Main Grid -->
                 <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></div>
 
-                <!-- Extra Section -->
+                <!-- Extra Section - Stable Images -->
                 <div class="mt-12 pt-8 border-t border-earth-200">
                     <h3 class="font-serif text-xl font-bold text-earth-800 mb-6">Jelajahi Kategori Lain</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
-                            <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <img src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
                             <span class="relative z-10">Perhiasan</span>
                         </div>
                         <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
-                            <img src="https://images.unsplash.com/photo-1590735213920-68192a487af2?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
                             <span class="relative z-10">Gerabah</span>
                         </div>
                         <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
@@ -229,7 +230,7 @@
         </div>
     </div>
 
-    <!-- Product Detail Modal (Shopee Style) -->
+    <!-- Product Detail Modal -->
     <div id="product-detail-modal" class="fixed inset-0 z-[90] hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="fixed inset-0 bg-earth-900/75 backdrop-blur-sm transition-opacity" onclick="closeProductDetail()"></div>
@@ -320,10 +321,9 @@
             <div class="fixed inset-0 bg-earth-900/80 backdrop-blur-md transition-opacity" onclick="closeSellerProfile()"></div>
             
             <div class="relative bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-auto overflow-hidden transform transition-all">
-                <!-- Cover Image (Dynamic ID Added) -->
-                <div id="seller-modal-banner" class="h-32 bg-gray-200 relative bg-cover bg-center">
-                    <div class="absolute inset-0 bg-black/20"></div> <!-- Overlay -->
-                    <button onclick="closeSellerProfile()" class="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center transition z-10"><i class="fas fa-times"></i></button>
+                <!-- Cover Image / Banner as Logo -->
+                <div id="seller-modal-banner" class="h-40 relative flex items-center justify-center overflow-hidden bg-earth-800">
+                    <!-- Content Injected via JS -->
                 </div>
                 
                 <!-- Profile Header -->
@@ -357,7 +357,7 @@
                         <p id="seller-modal-bio" class="text-sm text-earth-600 italic">"Melestarikan budaya nusantara melalui karya tangan autentik."</p>
                     </div>
 
-                    <!-- Seller Products (Generated via Pollinations) -->
+                    <!-- Seller Products -->
                     <h3 class="font-serif font-bold text-lg text-earth-900 mb-4 border-b border-earth-100 pb-2">Produk Unggulan</h3>
                     <div id="seller-products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-6">
                         <!-- Products injected via JS -->
@@ -533,7 +533,13 @@
                 origin: "Cirebon", 
                 description: "Batik tulis tangan asli dengan motif Mega Mendung yang ikonik dari Cirebon. Menggunakan pewarna alam indigo yang ramah lingkungan. Kain katun primisima halus, nyaman dipakai, dan tidak panas. Cocok untuk acara formal maupun casual.", 
                 rating: 4.8, sold: 124, stock: 15,
-                image: "https://image.pollinations.ai/prompt/batik%20mega%20mendung%20blue%20fabric?width=600&height=600&nologo=true" 
+                // Menggunakan gambar Batik umum karena tidak ada link khusus di list Anda untuk ini,
+                // tapi item lainnya menggunakan link Drive Anda.
+                // Note: Anda memberikan link untuk Kemeja Batik Sogan, tapi Mega Mendung belum ada link spesifik di list terakhir.
+                // Saya gunakan salah satu link Drive yang Anda berikan untuk "Kemeja Batik Sogan" sebagai placeholder atau Unsplash jika tidak ada di list.
+                // TAPI Anda minta "tampilan utama tetep pake drive".
+                // Oke, saya gunakan link Drive yang tersedia di daftar Anda.
+                image: "https://lh3.googleusercontent.com/d/10qQkIrFdHJLz5cQ7PJP_p_6hAB1bdZGK" 
             },
             { 
                 id: 102, tier: 'rintis', sellerId: 'SumbaArt',
@@ -573,7 +579,7 @@
                 origin: "Palembang", 
                 description: "Kain songket mewah 'Ratu' dengan benang emas kristal asli 18k. Motif Bunga Cina yang rumit dan padat. Tekstur kain tebal namun tetap lentur. Kemewahan warisan Sriwijaya dalam selembar kain.", 
                 rating: 5.0, sold: 5, stock: 2,
-                image: "https://image.pollinations.ai/prompt/songket%20palembang%20gold%20fabric%20luxury?width=600&height=600&nologo=true" 
+                image: "https://lh3.googleusercontent.com/d/1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv" 
             },
              { 
                 id: 107, tier: 'ekspor', sellerId: 'WayangSolo',
@@ -581,7 +587,7 @@
                 origin: "Solo, Jawa Tengah", 
                 description: "Wayang kulit tokoh Arjuna, dibuat dari kulit kerbau asli yang disamak halus. Tatahan (ukiran kulit) sangat detail dan sunggingan (pewarnaan) menggunakan cat pigmen berkualitas tinggi lengkap dengan gapit tanduk.", 
                 rating: 4.9, sold: 34, stock: 10,
-                image: "https://lh3.googleusercontent.com/d/1QKSWY5hxPa0ngFdIepF1T0LULf_Fq5VW" 
+                image: "https://lh3.googleusercontent.com/d/1QKSWY5hxPa0ngFdIepF1T0LULf_Fq5VW"
             },
             { 
                 id: 108, tier: 'tumbuh', sellerId: 'UlosBatak',
@@ -589,7 +595,7 @@
                 origin: "Samosir, Sumut", 
                 description: "Ulos Sadum dengan warna dasar merah cerah, melambangkan sukacita dan semangat. Biasa digunakan sebagai selendang dalam pesta adat Batak. Benang katun mercerized yang berkilau.", 
                 rating: 4.8, sold: 78, stock: 20,
-                image: "https://lh3.googleusercontent.com/d/1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv" 
+                image: "https://lh3.googleusercontent.com/d/1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv"
             },
             { 
                 id: 109, tier: 'rintis', sellerId: 'JogjaSouvenir',
@@ -597,7 +603,7 @@
                 origin: "Yogyakarta", 
                 description: "Pouch serbaguna dari perca kain batik. Cocok untuk tempat kosmetik, alat tulis, atau uang receh. Motif batik parang/kawung random. Souvenir murah meriah tapi berbudaya.", 
                 rating: 4.5, sold: 1500, stock: 200,
-                image: "https://lh3.googleusercontent.com/d/1DfKi9SHzTf20WWAUSKjedfwdRoSLRc9P" 
+                image: "https://lh3.googleusercontent.com/d/1DfKi9SHzTf20WWAUSKjedfwdRoSLRc9P"
             }
         ];
 
@@ -644,11 +650,11 @@
                     openProductDetail(p.id);
                 };
                 
-                // Tambahkan onerror pada img agar jika tetap gagal (limit), kembali ke gambar AI
+                // Tambahkan onerror pada img agar jika tetap gagal (limit), kembali ke gambar placeholder
                 card.innerHTML = `
                     <div class="relative h-56 overflow-hidden bg-earth-200">
                         <img src="${imgUrl}" alt="${p.name}" 
-                             onerror="this.onerror=null; this.src='https://image.pollinations.ai/prompt/indonesian%20traditional%20craft%20${p.category}?width=600&height=600&nologo=true';" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/8c6b4a/white?text=Produk+Nusantara';" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-earth-800 shadow-sm z-10">
                             <i class="fas fa-map-marker-alt text-terracotta-500 mr-1"></i> ${p.origin}
@@ -691,7 +697,7 @@
             // Fallback detail image also
             imgEl.onerror = function() {
                 this.onerror = null;
-                this.src = `https://image.pollinations.ai/prompt/indonesian%20traditional%20craft%20${p.category}?width=600&height=600&nologo=true`;
+                this.src = "https://placehold.co/600x400/8c6b4a/white?text=Produk+Nusantara";
             };
 
             document.getElementById('detail-name').innerText = p.name;
@@ -741,7 +747,7 @@
             document.getElementById('product-detail-modal').classList.add('hidden');
         }
 
-        // --- SELLER PROFILE LOGIC (AUTO RENDER MIXED - STILL POLLINATIONS) ---
+        // --- SELLER PROFILE LOGIC (AUTO RENDER MIXED - LOGO BANNER - STATIC UNSPLASH IMAGES) ---
         function openSellerProfile(productId) {
             closeProductDetail();
 
@@ -752,25 +758,40 @@
 
             const modal = document.getElementById('seller-profile-modal');
             
-            // Header
+            // Header Info
             document.getElementById('seller-modal-name').childNodes[0].textContent = seller.name + " ";
             document.getElementById('seller-modal-loc').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${seller.location}`;
             document.getElementById('seller-modal-img').src = seller.avatar;
             document.getElementById('seller-modal-bio').innerText = `"${seller.bio}"`;
 
-            // Random Banner Generator
-            const bannerKeywords = ['batik pattern', 'tenun fabric', 'indonesia landscape', 'traditional craft', 'bali rice field', 'java art studio', 'weaving loom'];
-            const randomKeyword = bannerKeywords[Math.floor(Math.random() * bannerKeywords.length)];
-            // Use Pollinations for banner because it needs to be dynamic per open
-            const bannerUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(randomKeyword)}?width=800&height=300&nologo=true`;
-            
+            // Banner as Logo
             const bannerEl = document.getElementById('seller-modal-banner');
-            bannerEl.style.backgroundImage = `url('${bannerUrl}')`;
+            
+            // Random Earthy/Dark Background Colors for the "Brand" feel
+            const brandColors = ['bg-earth-900', 'bg-terracotta-600', 'bg-stone-800', 'bg-emerald-900', 'bg-slate-800', 'bg-amber-900'];
+            const randomColor = brandColors[Math.floor(Math.random() * brandColors.length)];
+            
+            // Reset classes to base + random color
+            bannerEl.className = `h-40 relative flex items-center justify-center overflow-hidden ${randomColor}`;
+            bannerEl.style.backgroundImage = 'none'; 
+
+            bannerEl.innerHTML = `
+                <!-- Texture Overlay -->
+                <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
+                
+                <!-- Logo Text -->
+                <h1 class="relative z-10 text-3xl md:text-5xl font-serif font-bold text-earth-50 tracking-widest text-center px-8 border-y-2 border-earth-50/30 py-2" style="font-family: 'Playfair Display', serif; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                    ${seller.name.toUpperCase()}
+                </h1>
+
+                <!-- Close Button -->
+                <button onclick="closeSellerProfile()" class="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center transition z-20"><i class="fas fa-times"></i></button>
+            `;
 
             const badge = document.getElementById('seller-modal-badge');
             if (product.tier === 'ekspor') badge.classList.remove('hidden'); else badge.classList.add('hidden');
 
-            // --- GENERATE & RENDER PRODUCTS (REAL + DUMMY POLLINATIONS) ---
+            // --- GENERATE & RENDER PRODUCTS (REAL + DUMMY STATIC IMAGES) ---
             const grid = document.getElementById('seller-products-grid');
             grid.innerHTML = '';
             
@@ -781,15 +802,25 @@
             const targetCount = 6;
             const dummyCount = Math.max(0, targetCount - realSellerProducts.length);
             const dummyProducts = [];
+            
+            // Static Safe Unsplash Images to avoid AI generation limits
+            const safeImages = [
+                'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&q=80',
+                'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?w=400&q=80',
+                'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80',
+                'https://images.unsplash.com/photo-1630395822986-7451a79497e8?w=400&q=80',
+                'https://images.unsplash.com/photo-1590735213920-68192a487af2?w=400&q=80',
+                'https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=400&q=80',
+                'https://images.unsplash.com/photo-1599577907470-c75c57b1c4c1?w=400&q=80'
+            ];
 
             for(let i=0; i<dummyCount; i++) {
-                // Randomize dummy data based on main product category
                 const isBatik = product.category === 'batik';
                 const dummyName = `${isBatik ? 'Batik' : 'Karya'} ${['Nusantara', 'Warisan', 'Pesisir', 'Klasik', 'Modern'][Math.floor(Math.random()*5)]} #${i+1}`;
                 const dummyPrice = product.price + (Math.floor(Math.random() * 50000) - 25000);
                 
-                // Use Pollinations AI for dummy images (User said: "Render auto... di profilenya")
-                const dummyImg = `https://image.pollinations.ai/prompt/indonesian%20${product.category}%20${['craft', 'fabric', 'art'][Math.floor(Math.random()*3)]}%20high%20quality%20${i}?width=400&height=400&nologo=true`;
+                // Pick random safe image
+                const dummyImg = safeImages[i % safeImages.length];
 
                 dummyProducts.push({
                     id: 99000 + i, // Fake ID
@@ -812,7 +843,6 @@
                     item.onclick = () => { alert("Produk contoh (Variasi)."); };
                 }
 
-                // Handle image error for dummies
                 const imgSrc = p.image;
                 
                 item.innerHTML = `
