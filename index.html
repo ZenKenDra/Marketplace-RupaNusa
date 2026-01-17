@@ -114,7 +114,7 @@
         
         <!-- Header Banner -->
         <div class="bg-earth-800 rounded-2xl p-8 mb-10 relative overflow-hidden text-white shadow-xl">
-            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/batik.png')]"></div>
+            <div class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1599577907470-c75c57b1c4c1?q=80&w=2070')] bg-cover bg-center"></div>
             <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="text-left">
                     <h1 class="font-serif text-3xl md:text-5xl font-bold mb-2">Koleksi Kurasi Nusantara</h1>
@@ -183,10 +183,22 @@
                 <div class="mt-12 pt-8 border-t border-earth-200">
                     <h3 class="font-serif text-xl font-bold text-earth-800 mb-6">Jelajahi Kategori Lain</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Perhiasan</div>
-                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Gerabah</div>
-                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Kuliner</div>
-                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer">Musik</div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
+                            <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <span class="relative z-10">Perhiasan</span>
+                        </div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
+                            <img src="https://images.unsplash.com/photo-1590735213920-68192a487af2?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <span class="relative z-10">Gerabah</span>
+                        </div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
+                            <img src="https://images.unsplash.com/photo-1509358271058-acd25fae3895?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <span class="relative z-10">Kuliner</span>
+                        </div>
+                        <div class="bg-earth-100 h-24 rounded-lg flex items-center justify-center text-earth-600 font-bold hover:bg-terracotta-100 hover:text-terracotta-600 transition cursor-pointer overflow-hidden relative group">
+                            <img src="https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition">
+                            <span class="relative z-10">Musik</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -249,6 +261,21 @@
                             </div>
                         </div>
 
+                        <!-- Seller Info Card -->
+                        <div onclick="openSellerProfile(currentDetailProductId)" class="flex items-center gap-3 p-3 border border-earth-200 rounded-xl cursor-pointer hover:bg-earth-50 transition mb-6 group shadow-sm">
+                            <img id="detail-seller-img" src="" class="w-12 h-12 rounded-full border border-earth-200 object-cover">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h4 id="detail-seller-name" class="font-bold text-earth-900 text-sm">Nama Penjual</h4>
+                                    <i class="fas fa-check-circle text-blue-500 text-xs hidden" id="detail-seller-verified"></i>
+                                </div>
+                                <p id="detail-seller-loc" class="text-xs text-earth-500">Lokasi Penjual</p>
+                            </div>
+                            <div class="text-terracotta-600 text-xs font-bold flex items-center gap-1 group-hover:translate-x-1 transition">
+                                Kunjungi Toko <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+
                         <!-- Info Spesifik -->
                         <div class="space-y-4 mb-6">
                             <div class="flex">
@@ -287,8 +314,61 @@
         </div>
     </div>
 
+    <!-- Seller Profile Modal -->
+    <div id="seller-profile-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="fixed inset-0 bg-earth-900/80 backdrop-blur-md transition-opacity" onclick="closeSellerProfile()"></div>
+            
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-auto overflow-hidden transform transition-all">
+                <!-- Cover Image (Dynamic ID Added) -->
+                <div id="seller-modal-banner" class="h-32 bg-gray-200 relative bg-cover bg-center">
+                    <div class="absolute inset-0 bg-black/20"></div> <!-- Overlay -->
+                    <button onclick="closeSellerProfile()" class="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center transition z-10"><i class="fas fa-times"></i></button>
+                </div>
+                
+                <!-- Profile Header -->
+                <div class="px-8 pb-6 relative">
+                    <div class="flex flex-col md:flex-row items-end md:items-center gap-4 -mt-10 mb-6 relative z-10">
+                        <img id="seller-modal-img" src="" class="w-24 h-24 rounded-full border-4 border-white shadow-md bg-white object-cover">
+                        <div class="flex-1 mb-2">
+                            <h2 id="seller-modal-name" class="text-2xl font-bold text-earth-900 flex items-center gap-2">
+                                Nama Toko 
+                                <span id="seller-modal-badge" class="hidden bg-gold-500 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider"><i class="fas fa-crown mr-1"></i>Official</span>
+                            </h2>
+                            <p id="seller-modal-loc" class="text-earth-600 text-sm"><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</p>
+                        </div>
+                        <div class="flex gap-4 mb-2">
+                            <div class="text-center">
+                                <div class="font-bold text-earth-900">4.9</div>
+                                <div class="text-xs text-earth-500">Rating</div>
+                            </div>
+                            <div class="w-px h-8 bg-earth-200"></div>
+                            <div class="text-center">
+                                <div class="font-bold text-earth-900">1.2k</div>
+                                <div class="text-xs text-earth-500">Pengikut</div>
+                            </div>
+                            <button class="bg-terracotta-500 text-white px-6 py-1 rounded-full text-sm font-bold hover:bg-terracotta-600 transition shadow-md">Ikuti</button>
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="bg-earth-50 p-4 rounded-xl border border-earth-100 mb-6">
+                        <h4 class="font-bold text-earth-800 text-sm mb-1">Tentang Toko</h4>
+                        <p id="seller-modal-bio" class="text-sm text-earth-600 italic">"Melestarikan budaya nusantara melalui karya tangan autentik."</p>
+                    </div>
+
+                    <!-- Seller Products (Generated via Pollinations) -->
+                    <h3 class="font-serif font-bold text-lg text-earth-900 mb-4 border-b border-earth-100 pb-2">Produk Unggulan</h3>
+                    <div id="seller-products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-6">
+                        <!-- Products injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Lainnya (Checkout, Topup, Withdraw, Account) -->
-    <!-- (Disalin dari versi sebelumnya, tetap ada dan berfungsi) -->
+    <!-- Checkout Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <div class="fixed inset-0 bg-earth-900/75 backdrop-blur-sm transition-opacity" onclick="closeCheckout()"></div>
@@ -328,7 +408,6 @@
         </div>
     </div>
 
-    <!-- Top Up & Withdraw Modal (Same as before) -->
     <!-- Top Up Modal -->
     <div id="topup-modal" class="fixed inset-0 z-[80] hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
@@ -426,15 +505,30 @@
         let userBalance = 16500000; 
         let maxPriceFilter = 5000000;
         let qrCodeObj = null; 
+        let currentDetailProductId = null; // Store currently viewed product ID
+        let dummyIdCounter = 900; // ID generator for dummy products
         
         let transactionHistory = [
             { id: 'TRX-998', date: '2023-10-15', items: 'Batik Mega Mendung', total: 635000, status: 'Selesai' }
         ];
 
-        // --- DATA PRODUK LENGKAP (FIXED GOOGLE DRIVE IMAGES) ---
+        // --- DATA SELLER ---
+        const sellers = {
+            'Trusmi': { name: 'Batik Trusmi Official', location: 'Cirebon', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=BT', bio: 'Pusat batik Cirebon terbesar, melestarikan warisan leluhur sejak 1980.' },
+            'SumbaArt': { name: 'Sumba Art Weaving', location: 'Sumba Timur', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=SA', bio: 'Tenun ikat pewarna alam langsung dari mama-mama penenun Sumba.' },
+            'BaliCraft': { name: 'Bali Craft Center', location: 'Gianyar, Bali', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=BC', bio: 'Koleksi anyaman dan ukiran terbaik dari pulau Dewata.' },
+            'SoloHeritage': { name: 'Solo Heritage', location: 'Surakarta', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=SH', bio: 'Batik Sogan klasik dengan pakem keraton.' },
+            'PanjiGallery': { name: 'Galeri Topeng Panji', location: 'Yogyakarta', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=GP', bio: 'Spesialis topeng kayu mahoni kualitas museum.' },
+            'Sriwijaya': { name: 'Tenun Sriwijaya', location: 'Palembang', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=TS', bio: 'Songket benang emas kristal warisan masa lalu.' },
+            'WayangSolo': { name: 'Sanggar Wayang Kulit', location: 'Solo', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=SW', bio: 'Wayang kulit tatahan halus standar pentas dalang.' },
+            'UlosBatak': { name: 'Ulos Tenun Toba', location: 'Samosir', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=UT', bio: 'Penenun ulos tradisional di tepian Danau Toba.' },
+            'JogjaSouvenir': { name: 'Jogja Souvenir', location: 'Malioboro', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=JS', bio: 'Oleh-oleh unik dan murah meriah khas Jogja.' }
+        };
+
+        // --- DATA PRODUK LENGKAP DENGAN SELLER ID (DRIVE IMAGES REVERTED AS REQUESTED) ---
         const products = [
             { 
-                id: 101, tier: 'tumbuh', 
+                id: 101, tier: 'tumbuh', sellerId: 'Trusmi',
                 name: "Batik Mega Mendung Royal", category: "batik", price: 450000, 
                 origin: "Cirebon", 
                 description: "Batik tulis tangan asli dengan motif Mega Mendung yang ikonik dari Cirebon. Menggunakan pewarna alam indigo yang ramah lingkungan. Kain katun primisima halus, nyaman dipakai, dan tidak panas. Cocok untuk acara formal maupun casual.", 
@@ -442,16 +536,15 @@
                 image: "https://image.pollinations.ai/prompt/batik%20mega%20mendung%20blue%20fabric?width=600&height=600&nologo=true" 
             },
             { 
-                id: 102, tier: 'rintis', 
+                id: 102, tier: 'rintis', sellerId: 'SumbaArt',
                 name: "Selendang Tenun Sumba", category: "tenun", price: 850000, 
                 origin: "Sumba Timur", 
                 description: "Tenun ikat Sumba dengan motif fauna (kuda) yang melambangkan kepemimpinan dan kekuatan. Ditenun secara manual menggunakan alat gedogan tradisional. Proses pembuatan memakan waktu hingga 3 minggu.", 
                 rating: 4.7, sold: 45, stock: 8,
-                // FIX: Menggunakan lh3.googleusercontent.com
                 image: "https://lh3.googleusercontent.com/d/1MI-tqSXDr2eMhn7jS3UkNVmk34AJEgNX" 
             },
             { 
-                id: 103, tier: 'rintis', 
+                id: 103, tier: 'rintis', sellerId: 'BaliCraft',
                 name: "Tas Rotan Bulat Bali", category: "kriya", price: 185000, 
                 origin: "Bali", 
                 description: "Tas selempang bulat kekinian dari anyaman rotan asli Bali (Ata). Dilengkapi dengan lining kain batik di bagian dalam dan penutup kancing klip. Tahan lama dan estetik untuk OOTD.", 
@@ -459,7 +552,7 @@
                 image: "https://lh3.googleusercontent.com/d/1QU4FEKzNPPUWyIpRc75KJDiACpMBvjCh" 
             },
             { 
-                id: 104, tier: 'tumbuh', 
+                id: 104, tier: 'tumbuh', sellerId: 'SoloHeritage',
                 name: "Kemeja Batik Sogan", category: "batik", price: 275000, 
                 origin: "Solo", 
                 description: "Kemeja batik pria dengan motif Sogan klasik khas Solo. Perpaduan teknik cap dan tulis memberikan detail yang tajam. Warna cokelat klasik yang elegan dan berwibawa.", 
@@ -467,7 +560,7 @@
                 image: "https://lh3.googleusercontent.com/d/10qQkIrFdHJLz5cQ7PJP_p_6hAB1bdZGK" 
             },
             { 
-                id: 105, tier: 'ekspor', 
+                id: 105, tier: 'ekspor', sellerId: 'PanjiGallery',
                 name: "Ukiran Topeng Panji Premium", category: "kriya", price: 2500000, 
                 origin: "Yogyakarta", 
                 description: "Masterpiece ukiran topeng Panji dari kayu mahoni pilihan. Dipahat oleh maestro ukir Yogyakarta dengan detail anatomi wajah yang halus dan ekspresif. Finishing natural polish. Sangat cocok untuk kolektor seni.", 
@@ -475,7 +568,7 @@
                 image: "https://lh3.googleusercontent.com/d/1dHAhlVziw3TOXxyFVHoL-CXXDBUys0Ps" 
             },
             { 
-                id: 106, tier: 'ekspor', 
+                id: 106, tier: 'ekspor', sellerId: 'Sriwijaya',
                 name: "Royal Songket Palembang Gold", category: "tenun", price: 3500000, 
                 origin: "Palembang", 
                 description: "Kain songket mewah 'Ratu' dengan benang emas kristal asli 18k. Motif Bunga Cina yang rumit dan padat. Tekstur kain tebal namun tetap lentur. Kemewahan warisan Sriwijaya dalam selembar kain.", 
@@ -483,7 +576,7 @@
                 image: "https://image.pollinations.ai/prompt/songket%20palembang%20gold%20fabric%20luxury?width=600&height=600&nologo=true" 
             },
              { 
-                id: 107, tier: 'ekspor', 
+                id: 107, tier: 'ekspor', sellerId: 'WayangSolo',
                 name: "Wayang Kulit Arjuna", category: "kriya", price: 1500000, 
                 origin: "Solo, Jawa Tengah", 
                 description: "Wayang kulit tokoh Arjuna, dibuat dari kulit kerbau asli yang disamak halus. Tatahan (ukiran kulit) sangat detail dan sunggingan (pewarnaan) menggunakan cat pigmen berkualitas tinggi lengkap dengan gapit tanduk.", 
@@ -491,7 +584,7 @@
                 image: "https://lh3.googleusercontent.com/d/1QKSWY5hxPa0ngFdIepF1T0LULf_Fq5VW" 
             },
             { 
-                id: 108, tier: 'tumbuh', 
+                id: 108, tier: 'tumbuh', sellerId: 'UlosBatak',
                 name: "Kain Ulos Batak Sadum", category: "tenun", price: 650000, 
                 origin: "Samosir, Sumut", 
                 description: "Ulos Sadum dengan warna dasar merah cerah, melambangkan sukacita dan semangat. Biasa digunakan sebagai selendang dalam pesta adat Batak. Benang katun mercerized yang berkilau.", 
@@ -499,7 +592,7 @@
                 image: "https://lh3.googleusercontent.com/d/1nGvNBUIwvfBSaF8gQAnP0snybCBZRcSv" 
             },
             { 
-                id: 109, tier: 'rintis', 
+                id: 109, tier: 'rintis', sellerId: 'JogjaSouvenir',
                 name: "Dompet Batik Pouch", category: "kriya", price: 45000, 
                 origin: "Yogyakarta", 
                 description: "Pouch serbaguna dari perca kain batik. Cocok untuk tempat kosmetik, alat tulis, atau uang receh. Motif batik parang/kawung random. Souvenir murah meriah tapi berbudaya.", 
@@ -515,7 +608,7 @@
         }
         updateBalanceUI();
 
-        // --- RENDER FUNCTION ---
+        // --- RENDER FUNCTION (MAIN GRID) ---
         function renderProducts(category = 'all', maxPrice = 5000000) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
@@ -546,13 +639,12 @@
                 card.className = `bg-white rounded-xl shadow-md border ${borderClass} overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col h-full fade-in ${extraClass} cursor-pointer`;
                 card.style.animationDelay = `${index * 50}ms`;
                 
-                // Click on card opens detail
                 card.onclick = (e) => {
                     if (e.target.closest('button')) return;
                     openProductDetail(p.id);
                 };
                 
-                // Tambahkan onerror pada img agar jika tetap gagal, kembali ke gambar AI
+                // Tambahkan onerror pada img agar jika tetap gagal (limit), kembali ke gambar AI
                 card.innerHTML = `
                     <div class="relative h-56 overflow-hidden bg-earth-200">
                         <img src="${imgUrl}" alt="${p.name}" 
@@ -581,17 +673,22 @@
             });
         }
 
-        // --- PRODUCT DETAIL MODAL LOGIC ---
+        // --- PRODUCT DETAIL MODAL ---
         function openProductDetail(id) {
-            const p = products.find(prod => prod.id === id);
-            if (!p) return;
-
-            const modal = document.getElementById('product-detail-modal');
+            let p = products.find(prod => prod.id === id);
             
-            // Populate Data
-            // Tambahkan fallback onerror juga di modal detail
+            if (!p) {
+                return;
+            }
+            
+            currentDetailProductId = p.id;
+            const modal = document.getElementById('product-detail-modal');
+            const seller = sellers[p.sellerId];
+
+            // Populate Product Data
             const imgEl = document.getElementById('detail-image');
             imgEl.src = p.image;
+            // Fallback detail image also
             imgEl.onerror = function() {
                 this.onerror = null;
                 this.src = `https://image.pollinations.ai/prompt/indonesian%20traditional%20craft%20${p.category}?width=600&height=600&nologo=true`;
@@ -605,12 +702,22 @@
             document.getElementById('detail-rating').innerText = p.rating;
             document.getElementById('detail-sold').innerText = p.sold;
 
-            // Render Badges in Detail
+            // Populate Seller Data in Product Detail
+            if (seller) {
+                document.getElementById('detail-seller-name').innerText = seller.name;
+                document.getElementById('detail-seller-loc').innerText = seller.location;
+                document.getElementById('detail-seller-img').src = seller.avatar;
+                
+                const verifiedIcon = document.getElementById('detail-seller-verified');
+                if (p.tier === 'ekspor' || p.tier === 'tumbuh') verifiedIcon.classList.remove('hidden');
+                else verifiedIcon.classList.add('hidden');
+            }
+
+            // Render Badges
             const badgesContainer = document.getElementById('detail-badges');
             badgesContainer.innerHTML = '';
             if (p.tier === 'ekspor') {
                 badgesContainer.innerHTML += `<div class="bg-gold-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md w-max"><i class="fas fa-crown mr-1"></i> Official Store</div>`;
-                badgesContainer.innerHTML += `<div class="bg-black/70 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-bold shadow-md w-max">Premium</div>`;
             } else if (p.tier === 'tumbuh') {
                 badgesContainer.innerHTML += `<div class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md w-max"><i class="fas fa-check-circle mr-1"></i> Terverifikasi</div>`;
             }
@@ -632,6 +739,99 @@
 
         function closeProductDetail() {
             document.getElementById('product-detail-modal').classList.add('hidden');
+        }
+
+        // --- SELLER PROFILE LOGIC (AUTO RENDER MIXED - STILL POLLINATIONS) ---
+        function openSellerProfile(productId) {
+            closeProductDetail();
+
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            const seller = sellers[product.sellerId];
+            if (!seller) return;
+
+            const modal = document.getElementById('seller-profile-modal');
+            
+            // Header
+            document.getElementById('seller-modal-name').childNodes[0].textContent = seller.name + " ";
+            document.getElementById('seller-modal-loc').innerHTML = `<i class="fas fa-map-marker-alt mr-1"></i> ${seller.location}`;
+            document.getElementById('seller-modal-img').src = seller.avatar;
+            document.getElementById('seller-modal-bio').innerText = `"${seller.bio}"`;
+
+            // Random Banner Generator
+            const bannerKeywords = ['batik pattern', 'tenun fabric', 'indonesia landscape', 'traditional craft', 'bali rice field', 'java art studio', 'weaving loom'];
+            const randomKeyword = bannerKeywords[Math.floor(Math.random() * bannerKeywords.length)];
+            // Use Pollinations for banner because it needs to be dynamic per open
+            const bannerUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(randomKeyword)}?width=800&height=300&nologo=true`;
+            
+            const bannerEl = document.getElementById('seller-modal-banner');
+            bannerEl.style.backgroundImage = `url('${bannerUrl}')`;
+
+            const badge = document.getElementById('seller-modal-badge');
+            if (product.tier === 'ekspor') badge.classList.remove('hidden'); else badge.classList.add('hidden');
+
+            // --- GENERATE & RENDER PRODUCTS (REAL + DUMMY POLLINATIONS) ---
+            const grid = document.getElementById('seller-products-grid');
+            grid.innerHTML = '';
+            
+            // 1. Get Real Products
+            const realSellerProducts = products.filter(p => p.sellerId === product.sellerId);
+            
+            // 2. Generate Dummy Products (To make it look full)
+            const targetCount = 6;
+            const dummyCount = Math.max(0, targetCount - realSellerProducts.length);
+            const dummyProducts = [];
+
+            for(let i=0; i<dummyCount; i++) {
+                // Randomize dummy data based on main product category
+                const isBatik = product.category === 'batik';
+                const dummyName = `${isBatik ? 'Batik' : 'Karya'} ${['Nusantara', 'Warisan', 'Pesisir', 'Klasik', 'Modern'][Math.floor(Math.random()*5)]} #${i+1}`;
+                const dummyPrice = product.price + (Math.floor(Math.random() * 50000) - 25000);
+                
+                // Use Pollinations AI for dummy images (User said: "Render auto... di profilenya")
+                const dummyImg = `https://image.pollinations.ai/prompt/indonesian%20${product.category}%20${['craft', 'fabric', 'art'][Math.floor(Math.random()*3)]}%20high%20quality%20${i}?width=400&height=400&nologo=true`;
+
+                dummyProducts.push({
+                    id: 99000 + i, // Fake ID
+                    name: dummyName,
+                    price: dummyPrice,
+                    image: dummyImg,
+                    isDummy: true
+                });
+            }
+
+            const allDisplayProducts = [...realSellerProducts, ...dummyProducts];
+
+            allDisplayProducts.forEach(p => {
+                const item = document.createElement('div');
+                item.className = "bg-white rounded-lg shadow border border-earth-100 overflow-hidden cursor-pointer hover:shadow-lg transition";
+                
+                if (!p.isDummy) {
+                    item.onclick = () => { closeSellerProfile(); openProductDetail(p.id); };
+                } else {
+                    item.onclick = () => { alert("Produk contoh (Variasi)."); };
+                }
+
+                // Handle image error for dummies
+                const imgSrc = p.image;
+                
+                item.innerHTML = `
+                    <div class="h-32 bg-gray-200 overflow-hidden">
+                        <img src="${imgSrc}" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                    </div>
+                    <div class="p-2">
+                        <h5 class="text-xs font-bold text-earth-900 line-clamp-1">${p.name}</h5>
+                        <p class="text-terracotta-600 font-bold text-xs">${formatRp(p.price)}</p>
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeSellerProfile() {
+            document.getElementById('seller-profile-modal').classList.add('hidden');
         }
 
         // --- FILTER & UTILS ---
