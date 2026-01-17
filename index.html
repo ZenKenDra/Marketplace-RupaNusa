@@ -525,7 +525,7 @@
             'JogjaSouvenir': { name: 'Jogja Souvenir', location: 'Malioboro', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=JS', bio: 'Oleh-oleh unik dan murah meriah khas Jogja.' }
         };
 
-        // --- DATA PRODUK LENGKAP DENGAN SELLER ID (DRIVE IMAGES REVERTED AS REQUESTED) ---
+        // --- DATA PRODUK LENGKAP DENGAN SELLER ID ---
         const products = [
             { 
                 id: 101, tier: 'tumbuh', sellerId: 'Trusmi',
@@ -533,12 +533,6 @@
                 origin: "Cirebon", 
                 description: "Batik tulis tangan asli dengan motif Mega Mendung yang ikonik dari Cirebon. Menggunakan pewarna alam indigo yang ramah lingkungan. Kain katun primisima halus, nyaman dipakai, dan tidak panas. Cocok untuk acara formal maupun casual.", 
                 rating: 4.8, sold: 124, stock: 15,
-                // Menggunakan gambar Batik umum karena tidak ada link khusus di list Anda untuk ini,
-                // tapi item lainnya menggunakan link Drive Anda.
-                // Note: Anda memberikan link untuk Kemeja Batik Sogan, tapi Mega Mendung belum ada link spesifik di list terakhir.
-                // Saya gunakan salah satu link Drive yang Anda berikan untuk "Kemeja Batik Sogan" sebagai placeholder atau Unsplash jika tidak ada di list.
-                // TAPI Anda minta "tampilan utama tetep pake drive".
-                // Oke, saya gunakan link Drive yang tersedia di daftar Anda.
                 image: "https://lh3.googleusercontent.com/d/10qQkIrFdHJLz5cQ7PJP_p_6hAB1bdZGK" 
             },
             { 
@@ -650,7 +644,6 @@
                     openProductDetail(p.id);
                 };
                 
-                // Tambahkan onerror pada img agar jika tetap gagal (limit), kembali ke gambar placeholder
                 card.innerHTML = `
                     <div class="relative h-56 overflow-hidden bg-earth-200">
                         <img src="${imgUrl}" alt="${p.name}" 
@@ -683,9 +676,7 @@
         function openProductDetail(id) {
             let p = products.find(prod => prod.id === id);
             
-            if (!p) {
-                return;
-            }
+            if (!p) return;
             
             currentDetailProductId = p.id;
             const modal = document.getElementById('product-detail-modal');
@@ -694,7 +685,6 @@
             // Populate Product Data
             const imgEl = document.getElementById('detail-image');
             imgEl.src = p.image;
-            // Fallback detail image also
             imgEl.onerror = function() {
                 this.onerror = null;
                 this.src = "https://placehold.co/600x400/8c6b4a/white?text=Produk+Nusantara";
@@ -748,6 +738,29 @@
         }
 
         // --- SELLER PROFILE LOGIC (AUTO RENDER MIXED - LOGO BANNER - STATIC UNSPLASH IMAGES) ---
+        // Image Pools for Random Generation
+        const imagePools = {
+            batik: [
+                'https://images.unsplash.com/photo-1599577907470-c75c57b1c4c1?w=400&q=80',
+                'https://images.unsplash.com/photo-1550920408-202a8bf305d2?w=400&q=80',
+                'https://images.unsplash.com/photo-1628143836374-609872d8a558?w=400&q=80',
+                'https://images.unsplash.com/photo-1605634478893-272cb233b669?w=400&q=80', // Pouch
+                'https://images.unsplash.com/photo-1605218427368-35b80a37912a?w=400&q=80'
+            ],
+            tenun: [
+                'https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=400&q=80',
+                'https://images.unsplash.com/photo-1612024782955-49fae79e441a?w=400&q=80',
+                'https://images.unsplash.com/photo-1600863920194-e3c38b241314?w=400&q=80',
+                'https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=400&q=80'
+            ],
+            kriya: [
+                'https://images.unsplash.com/photo-1590735213920-68192a487af2?w=400&q=80', // Rattan
+                'https://images.unsplash.com/photo-1543615674-6c3947477521?w=400&q=80', // Mask
+                'https://images.unsplash.com/photo-1572979069399-c09e39237731?w=400&q=80', // Wayang
+                'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?w=400&q=80'  // Pottery
+            ]
+        };
+
         function openSellerProfile(productId) {
             closeProductDetail();
 
@@ -803,24 +816,24 @@
             const dummyCount = Math.max(0, targetCount - realSellerProducts.length);
             const dummyProducts = [];
             
-            // Static Safe Unsplash Images to avoid AI generation limits
-            const safeImages = [
-                'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&q=80',
-                'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?w=400&q=80',
-                'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80',
-                'https://images.unsplash.com/photo-1630395822986-7451a79497e8?w=400&q=80',
-                'https://images.unsplash.com/photo-1590735213920-68192a487af2?w=400&q=80',
-                'https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=400&q=80',
-                'https://images.unsplash.com/photo-1599577907470-c75c57b1c4c1?w=400&q=80'
-            ];
+            // Select appropriate image pool based on main product category
+            let selectedPool = imagePools[product.category] || imagePools.kriya;
+            
+            // Also vary the names
+            const prefixes = {
+                batik: ["Kain Batik", "Kemeja Batik", "Selendang Batik", "Sarung Batik"],
+                tenun: ["Kain Tenun", "Selendang Tenun", "Ikat Kepala", "Syal Tenun"],
+                kriya: ["Kerajinan", "Ukiran", "Anyaman", "Souvenir"]
+            };
+            const currentPrefixes = prefixes[product.category] || prefixes.kriya;
+            const adjectives = ["Halus", "Premium", "Klasik", "Modern", "Etnik"];
 
             for(let i=0; i<dummyCount; i++) {
-                const isBatik = product.category === 'batik';
-                const dummyName = `${isBatik ? 'Batik' : 'Karya'} ${['Nusantara', 'Warisan', 'Pesisir', 'Klasik', 'Modern'][Math.floor(Math.random()*5)]} #${i+1}`;
+                const dummyName = `${currentPrefixes[Math.floor(Math.random() * currentPrefixes.length)]} ${adjectives[Math.floor(Math.random() * adjectives.length)]}`;
                 const dummyPrice = product.price + (Math.floor(Math.random() * 50000) - 25000);
                 
-                // Pick random safe image
-                const dummyImg = safeImages[i % safeImages.length];
+                // Pick random image from category pool
+                const dummyImg = selectedPool[Math.floor(Math.random() * selectedPool.length)];
 
                 dummyProducts.push({
                     id: 99000 + i, // Fake ID
@@ -840,7 +853,7 @@
                 if (!p.isDummy) {
                     item.onclick = () => { closeSellerProfile(); openProductDetail(p.id); };
                 } else {
-                    item.onclick = () => { alert("Produk contoh (Variasi)."); };
+                    item.onclick = () => { alert("Produk contoh (Variasi Toko)."); };
                 }
 
                 const imgSrc = p.image;
